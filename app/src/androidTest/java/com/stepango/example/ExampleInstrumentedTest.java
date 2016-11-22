@@ -1,4 +1,4 @@
-package com.stepango.rxdatabindings;
+package com.stepango.example;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

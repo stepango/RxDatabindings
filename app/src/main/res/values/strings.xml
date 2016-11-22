@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RxDatabindings</string>
+    <string name="press_me">Press me</string>
+    <string name="press_me_now">Press me now</string>
 </resources>
