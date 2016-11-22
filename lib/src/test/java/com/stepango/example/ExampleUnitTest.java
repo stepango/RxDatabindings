@@ -1,4 +1,4 @@
-package com.stepango.rxdatabindings;
+package com.stepango.example;
 
 import org.junit.Test;
 
