@@ -5,7 +5,7 @@ RxJava2 extensions for Android Databindings library
 
 Add RxDataBindings to your build.gradle
 ```
-"com.stepango.rxdatabindings:rxdatabindings:0.2"
+"com.stepango.rxdatabindings:rxdatabindings:0.2.1"
 ```
 
 Basic example of usage:
@@ -22,3 +22,4 @@ class ViewModel {
     fun decCounter() = counter.dec(0)
 }
 ```
+This library depends on [kOptional](https://github.com/stepango/kOptional) at the moment. This dependency will be removed in upcoming release
