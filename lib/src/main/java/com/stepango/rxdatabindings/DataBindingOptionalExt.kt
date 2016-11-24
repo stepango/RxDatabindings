@@ -1,4 +1,4 @@
-package com.stepango.example
+package com.stepango.rxdatabindings
 
 import android.databinding.ObservableField
 import android.databinding.ObservableParcelable

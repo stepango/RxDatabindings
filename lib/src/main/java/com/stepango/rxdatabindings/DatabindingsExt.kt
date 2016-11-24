@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.stepango.example
+package com.stepango.rxdatabindings
 
 import android.databinding.*
 import android.os.Parcelable

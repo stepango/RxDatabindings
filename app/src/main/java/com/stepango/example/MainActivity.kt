@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.databinding.ObservableInt
 import android.os.Bundle
 import com.stepango.example.databinding.ActivityMainBinding
+import com.stepango.rxdatabindings.*
 
 class MainActivity : Activity() {
 
