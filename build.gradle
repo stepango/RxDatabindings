@@ -1,13 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.0.5-2'
-    ext.rxJava_version = '2.0.1'
+    ext.kotlin_version = '1.0.5-3'
+    ext.rxJava_version = '2.0.3'
+    ext.gradle_plugin_version = '2.2.3'
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath "com.android.tools.build:gradle:$gradle_plugin_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

@@ -15,10 +15,21 @@
  */
 package com.stepango.rxdatabindings
 
-import android.databinding.*
+import android.databinding.ObservableBoolean
+import android.databinding.ObservableByte
+import android.databinding.ObservableChar
+import android.databinding.ObservableDouble
+import android.databinding.ObservableField
+import android.databinding.ObservableFloat
+import android.databinding.ObservableInt
+import android.databinding.ObservableLong
+import android.databinding.ObservableParcelable
+import android.databinding.ObservableShort
 import android.os.Parcelable
 import io.reactivex.Observable
 import io.reactivex.Observable.create
+import java.lang.Math.max
+import java.lang.Math.min
 import android.databinding.Observable as DataBindingObservable
 
 @Suppress("UNCHECKED_CAST")
@@ -50,6 +61,17 @@ class ObservableNumber(initialValue: Number) : ObservableField<Number>(initialVa
 fun ObservableInt.set(value: Number) = set(value.toInt())
 fun ObservableLong.set(value: Number) = set(value.toLong())
 
+fun Observable<Int>.setTo(field: ObservableInt) = doOnNext { field.set(it) }
+fun Observable<Byte>.setTo(field: ObservableByte) = doOnNext { field.set(it) }
+fun Observable<Char>.setTo(field: ObservableChar) = doOnNext { field.set(it) }
+fun Observable<Long>.setTo(field: ObservableLong) = doOnNext { field.set(it) }
+fun Observable<Short>.setTo(field: ObservableShort) = doOnNext { field.set(it) }
+fun Observable<Float>.setTo(field: ObservableFloat) = doOnNext { field.set(it) }
+fun Observable<Double>.setTo(field: ObservableDouble) = doOnNext { field.set(it) }
+fun Observable<Boolean>.setTo(field: ObservableBoolean) = doOnNext { field.set(it) }
+fun <T : Any> Observable<T>.setTo(field: ObservableField<in T>) = this.doOnNext { field.set(it) }
+fun <T : Parcelable> Observable<T>.setTo(field: ObservableParcelable<in T>) = this.doOnNext { field.set(it) }
+
 fun ObservableInt.observe() = observe { it.get() }
 fun ObservableByte.observe() = observe { it.get() }
 fun ObservableChar.observe() = observe { it.get() }
@@ -80,13 +102,13 @@ fun ObservableShort.inc() = apply { set(get().inc()) }
 fun ObservableFloat.inc() = apply { set(get().inc()) }
 fun ObservableDouble.inc() = apply { set(get().inc()) }
 
-fun ObservableInt.inc(max: Int) = apply { set(Math.min(get().inc(), max)) }
+fun ObservableInt.inc(max: Int) = apply { set(min(get().inc(), max)) }
 fun ObservableByte.inc(max: Byte) = apply { set(min(get().inc(), max)) }
 fun ObservableChar.inc(max: Char) = apply { set(min(get().inc(), max)) }
-fun ObservableLong.inc(max: Long) = apply { set(Math.min(get().inc(), max)) }
+fun ObservableLong.inc(max: Long) = apply { set(min(get().inc(), max)) }
 fun ObservableShort.inc(max: Short) = apply { set(min(get().inc(), max)) }
-fun ObservableFloat.inc(max: Float) = apply { set(Math.min(get().inc(), max)) }
-fun ObservableDouble.inc(max: Double) = apply { set(Math.min(get().inc(), max)) }
+fun ObservableFloat.inc(max: Float) = apply { set(min(get().inc(), max)) }
+fun ObservableDouble.inc(max: Double) = apply { set(min(get().inc(), max)) }
 
 fun ObservableInt.dec() = apply { set(get().dec()) }
 fun ObservableByte.dec() = apply { set(get().dec()) }
@@ -96,13 +118,13 @@ fun ObservableShort.dec() = apply { set(get().dec()) }
 fun ObservableFloat.dec() = apply { set(get().dec()) }
 fun ObservableDouble.dec() = apply { set(get().dec()) }
 
-fun ObservableInt.dec(min: Int) = apply { set(Math.max(get().dec(), min)) }
+fun ObservableInt.dec(min: Int) = apply { set(max(get().dec(), min)) }
 fun ObservableByte.dec(min: Byte) = apply { set(max(get().dec(), min)) }
 fun ObservableChar.dec(min: Char) = apply { set(max(get().dec(), min)) }
-fun ObservableLong.dec(min: Long) = apply { set(Math.max(get().dec(), min)) }
+fun ObservableLong.dec(min: Long) = apply { set(max(get().dec(), min)) }
 fun ObservableShort.dec(min: Short) = apply { set(max(get().dec(), min)) }
-fun ObservableFloat.dec(min: Float) = apply { set(Math.max(get().dec(), min)) }
-fun ObservableDouble.dec(min: Double) = apply { set(Math.max(get().dec(), min)) }
+fun ObservableFloat.dec(min: Float) = apply { set(max(get().dec(), min)) }
+fun ObservableDouble.dec(min: Double) = apply { set(max(get().dec(), min)) }
 
 private fun min(a: Short, b: Short) = if (a > b) b else a
 private fun min(a: Byte, b: Byte) = if (a > b) b else a

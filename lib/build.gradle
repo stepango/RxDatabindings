@@ -4,12 +4,12 @@ apply plugin: 'kotlin-android'
 ext {
     PUBLISH_GROUP_ID = 'com.stepango.rxdatabindings'
     PUBLISH_ARTIFACT_ID = 'rxdatabindings'
-    PUBLISH_VERSION = '0.2.1'
+    PUBLISH_VERSION = '0.3.0'
 }
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 16
@@ -32,9 +32,6 @@ dependencies {
     provided "io.reactivex.rxjava2:rxjava:$rxJava_version"
     compile 'com.stepango.koptional:koptional:1.0.1'
     testCompile 'junit:junit:4.12'
-}
-repositories {
-    mavenCentral()
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

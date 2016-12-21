@@ -5,7 +5,11 @@ import android.databinding.DataBindingUtil
 import android.databinding.ObservableInt
 import android.os.Bundle
 import com.stepango.example.databinding.ActivityMainBinding
-import com.stepango.rxdatabindings.*
+import com.stepango.rxdatabindings.ObservableString
+import com.stepango.rxdatabindings.dec
+import com.stepango.rxdatabindings.inc
+import com.stepango.rxdatabindings.observe
+import com.stepango.rxdatabindings.setTo
 
 class MainActivity : Activity() {
 
@@ -22,7 +26,9 @@ class ViewModel {
 
     init {
         counter.observe()
-                .subscribe { text.set("Wow! You count till ${counter()}") }
+                .map { "Wow! You count till $it" }
+                .setTo(text)
+                .subscribe()
     }
 
     fun incCounter() = counter.inc(10)
