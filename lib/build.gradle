@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 ext {
     PUBLISH_GROUP_ID = 'com.stepango.rxdatabindings'
     PUBLISH_ARTIFACT_ID = 'rxdatabindings'
-    PUBLISH_VERSION = '0.3.0'
+    PUBLISH_VERSION = '0.4.0'
 }
 
 android {
@@ -30,7 +30,7 @@ android {
 dependencies {
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     provided "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    compile 'com.stepango.koptional:koptional:1.0.1'
+    compile 'com.stepango.koptional:koptional:1.1.0'
     testCompile 'junit:junit:4.12'
 }
 

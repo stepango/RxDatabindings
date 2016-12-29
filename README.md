@@ -1,11 +1,11 @@
 # RxDatabindings
-[ ![Download](https://api.bintray.com/packages/step-89-g/stepango/rxDataBindings/images/download.svg) ](https://bintray.com/step-89-g/stepango/rxDataBindings/_latestVersion)
+[![Download](https://api.bintray.com/packages/step-89-g/stepango/rxDataBindings/images/download.svg) ](https://bintray.com/step-89-g/stepango/rxDataBindings/_latestVersion)
 
 RxJava2 extensions for Android Databindings library
 
 Add RxDataBindings to your build.gradle
 ```
-"com.stepango.rxdatabindings:rxdatabindings:0.3.0"
+"com.stepango.rxdatabindings:rxdatabindings:0.4.0"
 ```
 
 Basic example of usage:
@@ -16,8 +16,7 @@ class ViewModel {
 
     init {
         counter.observe()
-                .map { "Wow! You count till $it" }
-                .setTo(text)
+                .setTo(text) { "Wow! You count till $it" }
                 .subscribe()
     }
 

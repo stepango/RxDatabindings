@@ -43,8 +43,8 @@ inline fun <T : DataBindingObservable, R : Any?> T.observe(
             subscriber.onError(e)
         }
     }.let {
-        subscriber.setCancellable { this.removeOnPropertyChangedCallback(it) }
-        this.addOnPropertyChangedCallback(it)
+        subscriber.setCancellable { removeOnPropertyChangedCallback(it) }
+        addOnPropertyChangedCallback(it)
     }
 }
 
@@ -61,16 +61,56 @@ class ObservableNumber(initialValue: Number) : ObservableField<Number>(initialVa
 fun ObservableInt.set(value: Number) = set(value.toInt())
 fun ObservableLong.set(value: Number) = set(value.toLong())
 
-fun Observable<Int>.setTo(field: ObservableInt) = doOnNext { field.set(it) }
-fun Observable<Byte>.setTo(field: ObservableByte) = doOnNext { field.set(it) }
-fun Observable<Char>.setTo(field: ObservableChar) = doOnNext { field.set(it) }
-fun Observable<Long>.setTo(field: ObservableLong) = doOnNext { field.set(it) }
-fun Observable<Short>.setTo(field: ObservableShort) = doOnNext { field.set(it) }
-fun Observable<Float>.setTo(field: ObservableFloat) = doOnNext { field.set(it) }
-fun Observable<Double>.setTo(field: ObservableDouble) = doOnNext { field.set(it) }
-fun Observable<Boolean>.setTo(field: ObservableBoolean) = doOnNext { field.set(it) }
-fun <T : Any> Observable<T>.setTo(field: ObservableField<in T>) = this.doOnNext { field.set(it) }
-fun <T : Parcelable> Observable<T>.setTo(field: ObservableParcelable<in T>) = this.doOnNext { field.set(it) }
+fun Observable<Int>.setTo(field: ObservableInt): Observable<Int> = doOnNext { field.set(it) }
+fun Observable<Byte>.setTo(field: ObservableByte): Observable<Byte> = doOnNext { field.set(it) }
+fun Observable<Char>.setTo(field: ObservableChar): Observable<Char> = doOnNext { field.set(it) }
+fun Observable<Long>.setTo(field: ObservableLong): Observable<Long> = doOnNext { field.set(it) }
+fun Observable<Short>.setTo(field: ObservableShort): Observable<Short> = doOnNext { field.set(it) }
+fun Observable<Float>.setTo(field: ObservableFloat): Observable<Float> = doOnNext { field.set(it) }
+fun Observable<Double>.setTo(field: ObservableDouble): Observable<Double> = doOnNext { field.set(it) }
+fun Observable<Boolean>.setTo(field: ObservableBoolean): Observable<Boolean> = doOnNext { field.set(it) }
+fun <T : Any> Observable<T>.setTo(field: ObservableField<in T>): Observable<T> = doOnNext { field.set(it) }
+fun <T : Parcelable> Observable<T>.setTo(field: ObservableParcelable<in T>): Observable<T> = doOnNext { field.set(it) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableInt, crossinline block: (T) -> Int
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableByte, crossinline block: (T) -> Byte
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableChar, crossinline block: (T) -> Char
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableLong, crossinline block: (T) -> Long
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableShort, crossinline block: (T) -> Short
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableFloat, crossinline block: (T) -> Float
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableDouble, crossinline block: (T) -> Double
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableBoolean, crossinline block: (T) -> Boolean
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any, R : Any> Observable<T>.setTo(
+        field: ObservableField<in R>, crossinline block: (T) -> R
+): Observable<T> = doOnNext { field.set(block(it)) }
+
+inline fun <T : Any, R : Parcelable> Observable<T>.setTo(
+        field: ObservableParcelable<in R>, crossinline block: (T) -> R
+): Observable<T> = doOnNext { field.set(block(it)) }
 
 fun ObservableInt.observe() = observe { it.get() }
 fun ObservableByte.observe() = observe { it.get() }

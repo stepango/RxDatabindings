@@ -26,8 +26,7 @@ class ViewModel {
 
     init {
         counter.observe()
-                .map { "Wow! You count till $it" }
-                .setTo(text)
+                .setTo(text) { "Wow! You count till $it" }
                 .subscribe()
     }
 
