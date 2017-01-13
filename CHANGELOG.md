@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 0.5.0 *(2017-01-13)*
+----------------------------
+
+* safeSetTo methods added
+* documentation added
+* rxJava updated to 2.0.4
+
 Version 0.4.0 *(2016-12-29)*
 ----------------------------
 

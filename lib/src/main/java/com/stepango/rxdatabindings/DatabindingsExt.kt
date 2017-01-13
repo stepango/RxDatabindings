@@ -34,11 +34,11 @@ import android.databinding.Observable as DataBindingObservable
 
 @Suppress("UNCHECKED_CAST")
 inline fun <T : DataBindingObservable, R : Any?> T.observe(
-        crossinline block: (T) -> R
+        crossinline transformer: (T) -> R
 ): Observable<R> = create { subscriber ->
     object : DataBindingObservable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(observable: DataBindingObservable, id: Int) = try {
-            subscriber.onNext(block(observable as T))
+            subscriber.onNext(transformer(observable as T))
         } catch (e: Exception) {
             subscriber.onError(e)
         }
@@ -61,56 +61,255 @@ class ObservableNumber(initialValue: Number) : ObservableField<Number>(initialVa
 fun ObservableInt.set(value: Number) = set(value.toInt())
 fun ObservableLong.set(value: Number) = set(value.toLong())
 
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun Observable<Int>.setTo(field: ObservableInt): Observable<Int> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun Observable<Byte>.setTo(field: ObservableByte): Observable<Byte> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun Observable<Char>.setTo(field: ObservableChar): Observable<Char> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun Observable<Long>.setTo(field: ObservableLong): Observable<Long> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun Observable<Short>.setTo(field: ObservableShort): Observable<Short> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun Observable<Float>.setTo(field: ObservableFloat): Observable<Float> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun Observable<Double>.setTo(field: ObservableDouble): Observable<Double> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun Observable<Boolean>.setTo(field: ObservableBoolean): Observable<Boolean> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun <T : Any> Observable<T>.setTo(field: ObservableField<in T>): Observable<T> = doOnNext { field.set(it) }
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
 fun <T : Parcelable> Observable<T>.setTo(field: ObservableParcelable<in T>): Observable<T> = doOnNext { field.set(it) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableInt, crossinline block: (T) -> Int
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableInt,
+        crossinline transformer: (T) -> Int
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableByte, crossinline block: (T) -> Byte
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableByte,
+        crossinline transformer: (T) -> Byte
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableChar, crossinline block: (T) -> Char
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableChar,
+        crossinline transformer: (T) -> Char
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableLong, crossinline block: (T) -> Long
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableLong,
+        crossinline transformer: (T) -> Long
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableShort, crossinline block: (T) -> Short
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableShort,
+        crossinline transformer: (T) -> Short
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableFloat, crossinline block: (T) -> Float
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableFloat,
+        crossinline transformer: (T) -> Float
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableDouble, crossinline block: (T) -> Double
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableDouble,
+        crossinline transformer: (T) -> Double
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableBoolean, crossinline block: (T) -> Boolean
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableBoolean,
+        crossinline transformer: (T) -> Boolean
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any, R : Any> Observable<T>.setTo(
-        field: ObservableField<in R>, crossinline block: (T) -> R
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableField<in R>,
+        crossinline transformer: (T) -> R
+): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+/**
+ * Set transformed value to field with corresponding type
+ * @param field observable value holder
+ * @param transformer value transformer
+ */
 inline fun <T : Any, R : Parcelable> Observable<T>.setTo(
-        field: ObservableParcelable<in R>, crossinline block: (T) -> R
-): Observable<T> = doOnNext { field.set(block(it)) }
+        field: ObservableParcelable<in R>,
+        crossinline transformer: (T) -> R
+): Observable<T> = doOnNext { field.set(transformer(it)) }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableInt,
+        crossinline transformer: (T) -> Int?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableByte,
+        crossinline transformer: (T) -> Byte?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableChar,
+        crossinline transformer: (T) -> Char?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableLong,
+        crossinline transformer: (T) -> Long?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableShort,
+        crossinline transformer: (T) -> Short?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableFloat,
+        crossinline transformer: (T) -> Float?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableDouble,
+        crossinline transformer: (T) -> Double?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableBoolean,
+        crossinline transformer: (T) -> Boolean?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any, R : Any> Observable<T>.safeSetTo(
+        field: ObservableField<in R>,
+        crossinline transformer: (T) -> R?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+
+/**
+ * Safe variant of @see [setTo] method that accepts and
+ * skip null values emitted by transformer
+ */
+inline fun <T : Any, R : Parcelable> Observable<T>.safeSetTo(
+        field: ObservableParcelable<in R>,
+        crossinline transformer: (T) -> R?
+): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
 
 fun ObservableInt.observe() = observe { it.get() }
 fun ObservableByte.observe() = observe { it.get() }

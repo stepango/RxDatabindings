@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.0.6'
-    ext.rxJava_version = '2.0.3'
+    ext.rxJava_version = '2.0.4'
     ext.gradle_plugin_version = '2.2.3'
     repositories {
         jcenter()
