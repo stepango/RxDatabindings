@@ -1,10 +1,16 @@
 Change Log
 ==========
 
+Version 0.6.0 *(2017-02-15)*
+----------------------------
+
+* `ObservableString` implements Parcelable
+* `observeOption` is now `observeOptional`
+
 Version 0.5.0 *(2017-01-13)*
 ----------------------------
 
-* safeSetTo methods added
+* `safeSetTo` methods added
 * documentation added
 * rxJava updated to 2.0.4
 
