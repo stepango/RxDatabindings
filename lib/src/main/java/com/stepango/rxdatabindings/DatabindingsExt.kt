@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 Goncharov Stepan
+ * Copyright 2017 Goncharov Stepan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,11 +47,6 @@ inline fun <T : DataBindingObservable, R : Any?> T.observe(
         addOnPropertyChangedCallback(it)
     }
 }
-
-/**
- * Observable wrapper for non-nullable String
- */
-class ObservableString(initialValue: String) : ObservableField<String>(initialValue)
 
 /**
  * Observable wrapper for number

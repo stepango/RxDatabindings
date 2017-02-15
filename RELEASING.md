@@ -1,1 +1,2 @@
-./gradlew clean build generateRelease
+cd lib
+../gradlew clean build generateRelease
