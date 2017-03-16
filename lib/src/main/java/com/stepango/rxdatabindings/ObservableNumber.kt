@@ -16,13 +16,8 @@
 package com.stepango.rxdatabindings
 
 import android.databinding.ObservableField
-import android.databinding.ObservableParcelable
-import android.os.Parcelable
-import com.stepango.koptional.toOptional
-import io.reactivex.Scheduler
 
-fun <T : Any> ObservableField<T?>.observeOptional(scheduler: Scheduler = dataBindingsScheduler)
-        = observe(scheduler) { it.get().toOptional() }
-
-fun <T : Parcelable> ObservableParcelable<T?>.observeOptional(scheduler: Scheduler = dataBindingsScheduler)
-        = observe(scheduler) { it.get().toOptional() }
+/**
+ * Observable wrapper for number
+ */
+class ObservableNumber(initialValue: Number) : ObservableField<Number>(initialValue)

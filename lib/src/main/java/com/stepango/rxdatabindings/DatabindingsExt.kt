@@ -28,14 +28,16 @@ import android.databinding.ObservableShort
 import android.os.Parcelable
 import io.reactivex.Observable
 import io.reactivex.Observable.create
+import io.reactivex.Scheduler
 import java.lang.Math.max
 import java.lang.Math.min
 import android.databinding.Observable as DataBindingObservable
 
 @Suppress("UNCHECKED_CAST")
 inline fun <T : DataBindingObservable, R : Any?> T.observe(
+        scheduler: Scheduler,
         crossinline transformer: (T) -> R
-): Observable<R> = create { subscriber ->
+): Observable<R> = create<R> { subscriber ->
     object : DataBindingObservable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(observable: DataBindingObservable, id: Int) = try {
             subscriber.onNext(transformer(observable as T))
@@ -46,276 +48,40 @@ inline fun <T : DataBindingObservable, R : Any?> T.observe(
         subscriber.setCancellable { removeOnPropertyChangedCallback(it) }
         addOnPropertyChangedCallback(it)
     }
-}
-
-/**
- * Observable wrapper for number
- */
-class ObservableNumber(initialValue: Number) : ObservableField<Number>(initialValue)
+}.observeOn(scheduler)
 
 fun ObservableInt.set(value: Number) = set(value.toInt())
 fun ObservableLong.set(value: Number) = set(value.toLong())
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun Observable<Int>.setTo(field: ObservableInt): Observable<Int> = doOnNext { field.set(it) }
+fun ObservableInt.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun Observable<Byte>.setTo(field: ObservableByte): Observable<Byte> = doOnNext { field.set(it) }
+fun ObservableByte.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun Observable<Char>.setTo(field: ObservableChar): Observable<Char> = doOnNext { field.set(it) }
+fun ObservableChar.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun Observable<Long>.setTo(field: ObservableLong): Observable<Long> = doOnNext { field.set(it) }
+fun ObservableLong.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun Observable<Short>.setTo(field: ObservableShort): Observable<Short> = doOnNext { field.set(it) }
+fun ObservableShort.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun Observable<Float>.setTo(field: ObservableFloat): Observable<Float> = doOnNext { field.set(it) }
+fun ObservableFloat.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun Observable<Double>.setTo(field: ObservableDouble): Observable<Double> = doOnNext { field.set(it) }
+fun ObservableDouble.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun Observable<Boolean>.setTo(field: ObservableBoolean): Observable<Boolean> = doOnNext { field.set(it) }
+fun ObservableBoolean.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun <T : Any> Observable<T>.setTo(field: ObservableField<in T>): Observable<T> = doOnNext { field.set(it) }
+fun <T : Any> ObservableField<T>.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun <T : Parcelable> Observable<T>.setTo(field: ObservableParcelable<in T>): Observable<T> = doOnNext { field.set(it) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableInt,
-        crossinline transformer: (T) -> Int
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableByte,
-        crossinline transformer: (T) -> Byte
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableChar,
-        crossinline transformer: (T) -> Char
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableLong,
-        crossinline transformer: (T) -> Long
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableShort,
-        crossinline transformer: (T) -> Short
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableFloat,
-        crossinline transformer: (T) -> Float
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableDouble,
-        crossinline transformer: (T) -> Double
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any> Observable<T>.setTo(
-        field: ObservableBoolean,
-        crossinline transformer: (T) -> Boolean
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any, R : Any> Observable<T>.setTo(
-        field: ObservableField<in R>,
-        crossinline transformer: (T) -> R
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Set transformed value to field with corresponding type
- * @param field observable value holder
- * @param transformer value transformer
- */
-inline fun <T : Any, R : Parcelable> Observable<T>.setTo(
-        field: ObservableParcelable<in R>,
-        crossinline transformer: (T) -> R
-): Observable<T> = doOnNext { field.set(transformer(it)) }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any> Observable<T>.safeSetTo(
-        field: ObservableInt,
-        crossinline transformer: (T) -> Int?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any> Observable<T>.safeSetTo(
-        field: ObservableByte,
-        crossinline transformer: (T) -> Byte?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any> Observable<T>.safeSetTo(
-        field: ObservableChar,
-        crossinline transformer: (T) -> Char?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any> Observable<T>.safeSetTo(
-        field: ObservableLong,
-        crossinline transformer: (T) -> Long?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any> Observable<T>.safeSetTo(
-        field: ObservableShort,
-        crossinline transformer: (T) -> Short?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any> Observable<T>.safeSetTo(
-        field: ObservableFloat,
-        crossinline transformer: (T) -> Float?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any> Observable<T>.safeSetTo(
-        field: ObservableDouble,
-        crossinline transformer: (T) -> Double?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any> Observable<T>.safeSetTo(
-        field: ObservableBoolean,
-        crossinline transformer: (T) -> Boolean?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any, R : Any> Observable<T>.safeSetTo(
-        field: ObservableField<in R>,
-        crossinline transformer: (T) -> R?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-/**
- * Safe variant of @see [setTo] method that accepts and
- * skip null values emitted by transformer
- */
-inline fun <T : Any, R : Parcelable> Observable<T>.safeSetTo(
-        field: ObservableParcelable<in R>,
-        crossinline transformer: (T) -> R?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
-
-fun ObservableInt.observe() = observe { it.get() }
-fun ObservableByte.observe() = observe { it.get() }
-fun ObservableChar.observe() = observe { it.get() }
-fun ObservableLong.observe() = observe { it.get() }
-fun ObservableShort.observe() = observe { it.get() }
-fun ObservableFloat.observe() = observe { it.get() }
-fun ObservableDouble.observe() = observe { it.get() }
-fun ObservableBoolean.observe() = observe { it.get() }
-fun <T : Any> ObservableField<T>.observe() = observe { it.get() }
-fun <T : Parcelable> ObservableParcelable<T>.observe() = observe { it.get() }
+fun <T : Parcelable> ObservableParcelable<T>.observe(scheduler: Scheduler = dataBindingsScheduler)
+        = observe(scheduler) { it.get() }
 
 operator fun ObservableInt.invoke() = get()
 operator fun ObservableByte.invoke() = get()
@@ -359,11 +125,3 @@ fun ObservableLong.dec(min: Long) = apply { set(max(get().dec(), min)) }
 fun ObservableShort.dec(min: Short) = apply { set(max(get().dec(), min)) }
 fun ObservableFloat.dec(min: Float) = apply { set(max(get().dec(), min)) }
 fun ObservableDouble.dec(min: Double) = apply { set(max(get().dec(), min)) }
-
-private fun min(a: Short, b: Short) = if (a > b) b else a
-private fun min(a: Byte, b: Byte) = if (a > b) b else a
-private fun min(a: Char, b: Char) = if (a > b) b else a
-
-private fun max(a: Short, b: Short) = if (a < b) b else a
-private fun max(a: Byte, b: Byte) = if (a < b) b else a
-private fun max(a: Char, b: Char) = if (a < b) b else a

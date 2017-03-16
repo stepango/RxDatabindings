@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.stepango.rxdatabindings
 
-import android.databinding.ObservableField
-import android.databinding.ObservableParcelable
-import android.os.Parcelable
-import com.stepango.koptional.toOptional
-import io.reactivex.Scheduler
+internal fun min(a: Short, b: Short) = if (a > b) b else a
+internal fun min(a: Byte, b: Byte) = if (a > b) b else a
+internal fun min(a: Char, b: Char) = if (a > b) b else a
 
-fun <T : Any> ObservableField<T?>.observeOptional(scheduler: Scheduler = dataBindingsScheduler)
-        = observe(scheduler) { it.get().toOptional() }
-
-fun <T : Parcelable> ObservableParcelable<T?>.observeOptional(scheduler: Scheduler = dataBindingsScheduler)
-        = observe(scheduler) { it.get().toOptional() }
+internal fun max(a: Short, b: Short) = if (a < b) b else a
+internal fun max(a: Byte, b: Byte) = if (a < b) b else a
+internal fun max(a: Char, b: Char) = if (a < b) b else a

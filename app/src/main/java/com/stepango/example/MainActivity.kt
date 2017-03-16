@@ -4,6 +4,7 @@ import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableInt
 import android.os.Bundle
+import android.util.Log
 import com.stepango.example.databinding.ActivityMainBinding
 import com.stepango.rxdatabindings.ObservableString
 import com.stepango.rxdatabindings.dec
@@ -18,6 +19,7 @@ class MainActivity : Activity() {
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         binding.viewModel = ViewModel()
     }
+
 }
 
 class ViewModel {
@@ -27,6 +29,7 @@ class ViewModel {
     init {
         counter.observe()
                 .setTo(text) { "Wow! You count till $it" }
+                .doOnNext { Log.d("THREAD", Thread.currentThread().name) }
                 .subscribe()
     }
 
