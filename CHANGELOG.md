@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 1.1.0 *(2017-04-24)*
+
+* `StringObservable` parcelable implementation now compatible with Kotlin 1.1
+* `fireInitialValue` flag added
+* `invoke` methods removed, breaking change
+
 Version 1.0.0 *(2017-03-16)*
 ----------------------------
 

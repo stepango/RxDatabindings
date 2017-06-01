@@ -21,8 +21,8 @@ import android.os.Parcelable
 import com.stepango.koptional.toOptional
 import io.reactivex.Scheduler
 
-fun <T : Any> ObservableField<T?>.observeOptional(scheduler: Scheduler = dataBindingsScheduler)
-        = observe(scheduler) { it.get().toOptional() }
+fun <T : Any> ObservableField<T?>.observeOptional(scheduler: Scheduler = dataBindingsScheduler, fireInitialValue: Boolean = true)
+        = observe(scheduler, fireInitialValue) { it.get().toOptional() }
 
-fun <T : Parcelable> ObservableParcelable<T?>.observeOptional(scheduler: Scheduler = dataBindingsScheduler)
-        = observe(scheduler) { it.get().toOptional() }
+fun <T : Parcelable> ObservableParcelable<T?>.observeOptional(scheduler: Scheduler = dataBindingsScheduler, fireInitialValue: Boolean = true)
+        = observe(scheduler, fireInitialValue) { it.get().toOptional() }

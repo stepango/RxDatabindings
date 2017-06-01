@@ -27,7 +27,7 @@ class ViewModel {
     val counter = ObservableInt(0)
 
     init {
-        counter.observe()
+        counter.observe(fireInitialValue = true)
                 .setTo(text) { "Wow! You count till $it" }
                 .doOnNext { Log.d("THREAD", Thread.currentThread().name) }
                 .subscribe()

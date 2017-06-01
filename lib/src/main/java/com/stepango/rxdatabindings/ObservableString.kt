@@ -31,7 +31,7 @@ class ObservableString(value: String = "") : ObservableField<String>(value), Par
     companion object {
         internal const val serialVersionUID = 1L
 
-        val CREATOR: Parcelable.Creator<ObservableString> = object : Parcelable.Creator<ObservableString> {
+        @JvmStatic val CREATOR: Parcelable.Creator<ObservableString> = object : Parcelable.Creator<ObservableString> {
 
             override fun createFromParcel(source: Parcel) = ObservableString(source.readString())
 
