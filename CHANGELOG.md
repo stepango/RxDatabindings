@@ -1,7 +1,17 @@
 Change Log
 ==========
 
+Version 1.1.1 *(2017-06-01)*
+----------------------------
+
+* Fixed kotlin parcelable serialization for ObservableString
+* rxJava updated to 2.1.0
+* Kotlin updated to 1.1.2-3
+* Example updated for orientation changes support
+* Gradle updated to v3.3
+
 Version 1.1.0 *(2017-04-24)*
+----------------------------
 
 * `StringObservable` parcelable implementation now compatible with Kotlin 1.1
 * `fireInitialValue` flag added

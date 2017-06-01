@@ -1,9 +1,11 @@
 package com.stepango.example
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableInt
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import com.stepango.example.databinding.ActivityMainBinding
 import com.stepango.rxdatabindings.ObservableString
@@ -11,20 +13,40 @@ import com.stepango.rxdatabindings.dec
 import com.stepango.rxdatabindings.inc
 import com.stepango.rxdatabindings.observe
 import com.stepango.rxdatabindings.setTo
+import io.mironov.smuggler.AutoParcelable
+import kotlin.properties.Delegates
 
 class MainActivity : Activity() {
+
+    var viewModel by Delegates.notNull<ViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        binding.viewModel = ViewModel()
+        viewModel = ViewModel(savedInstanceState.extract { ViewModelStateImpl() })
+        binding.viewModel = viewModel
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putState(viewModel.state)
     }
 
 }
 
-class ViewModel {
-    val text = ObservableString("")
-    val counter = ObservableInt(0)
+interface ViewModelState : Parcelable {
+    val text: ObservableString
+    val counter: ObservableInt
+}
+
+@SuppressLint("ParcelCreator")
+data class ViewModelStateImpl(
+        override val text: ObservableString = ObservableString(),
+        override val counter: ObservableInt = ObservableInt()
+) : ViewModelState, AutoParcelable
+
+@SuppressLint("ParcelCreator")
+class ViewModel(val state: ViewModelState) : ViewModelState by state {
 
     init {
         counter.observe(fireInitialValue = true)
@@ -36,4 +58,21 @@ class ViewModel {
     fun incCounter() = counter.inc(10)
     fun decCounter() = counter.dec(0)
 
+}
+
+inline fun <reified T : Parcelable> Bundle?.extract(defaultValueProducer: () -> T): T {
+    this ?: return defaultValueProducer()
+    val key = T::class.java.name
+    return if (containsKey(key)) {
+        Log.d("State::", "restored $key")
+        getParcelable(key)
+    } else {
+        defaultValueProducer()
+    }
+}
+
+fun <T : Parcelable> Bundle.putState(value: T) {
+    val name = value::class.java.name
+    putParcelable(name, value)
+    Log.d("State::", "saved $name")
 }
