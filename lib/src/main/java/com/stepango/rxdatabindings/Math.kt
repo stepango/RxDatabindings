@@ -15,11 +15,16 @@
  */
 
 package com.stepango.rxdatabindings
-
+@Deprecated("Will be removed in 1.3", ReplaceWith("if (a > b) b else a"))
 internal fun min(a: Short, b: Short) = if (a > b) b else a
+@Deprecated("Will be removed in 1.3", ReplaceWith("if (a > b) b else a"))
 internal fun min(a: Byte, b: Byte) = if (a > b) b else a
+@Deprecated("Will be removed in 1.3", ReplaceWith("if (a > b) b else a"))
 internal fun min(a: Char, b: Char) = if (a > b) b else a
 
+@Deprecated("Will be removed in 1.3", ReplaceWith("if (a < b) b else a"))
 internal fun max(a: Short, b: Short) = if (a < b) b else a
+@Deprecated("Will be removed in 1.3", ReplaceWith("if (a < b) b else a"))
 internal fun max(a: Byte, b: Byte) = if (a < b) b else a
+@Deprecated("Will be removed in 1.3", ReplaceWith("if (a < b) b else a"))
 internal fun max(a: Char, b: Char) = if (a < b) b else a

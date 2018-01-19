@@ -4,16 +4,16 @@ apply plugin: 'kotlin-android'
 ext {
     PUBLISH_GROUP_ID = 'com.stepango.rxdatabindings'
     PUBLISH_ARTIFACT_ID = 'rxdatabindings'
-    PUBLISH_VERSION = '1.1.1'
+    PUBLISH_VERSION = '1.2.0'
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion "25.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -24,7 +24,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding.enabled true
 }
 
 dependencies {
@@ -32,6 +31,9 @@ dependencies {
     provided "io.reactivex.rxjava2:rxjava:$rxJava_version"
     compile 'com.stepango.koptional:koptional:1.2.0'
     testCompile 'junit:junit:4.12'
+    provided "com.android.databinding:library:1.3.3"
+    provided "com.android.databinding:baseLibrary:3.0.1"
+    provided 'com.android.databinding:adapters:1.3.3'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

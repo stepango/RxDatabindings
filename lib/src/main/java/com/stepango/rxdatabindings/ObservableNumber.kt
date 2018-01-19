@@ -20,4 +20,6 @@ import android.databinding.ObservableField
 /**
  * Observable wrapper for number
  */
-class ObservableNumber(initialValue: Number) : ObservableField<Number>(initialValue)
+class ObservableNumber(initialValue: Number) : ObservableField<Number>(initialValue) {
+    override fun get(): Number = super.get()!!
+}

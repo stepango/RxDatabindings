@@ -93,34 +93,62 @@ fun <T : Any> ObservableField<T>.observe(scheduler: Scheduler = dataBindingsSche
 fun <T : Parcelable> ObservableParcelable<T>.observe(scheduler: Scheduler = dataBindingsScheduler, fireInitialValue: Boolean = true)
         = observe(scheduler, fireInitialValue) { it.get() }
 
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().inc()) }"))
 fun ObservableInt.inc() = apply { set(get().inc()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().inc()) }"))
 fun ObservableByte.inc() = apply { set(get().inc()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().inc()) }"))
 fun ObservableChar.inc() = apply { set(get().inc()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().inc()) }"))
 fun ObservableLong.inc() = apply { set(get().inc()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().inc()) }"))
 fun ObservableShort.inc() = apply { set(get().inc()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().inc()) }"))
 fun ObservableFloat.inc() = apply { set(get().inc()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().inc()) }"))
 fun ObservableDouble.inc() = apply { set(get().inc()) }
 
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(min(get().inc(), max)) }", "java.lang.Math.min"))
 fun ObservableInt.inc(max: Int) = apply { set(min(get().inc(), max)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(min(get().inc(), max)) }", "java.lang.Math.min"))
 fun ObservableByte.inc(max: Byte) = apply { set(min(get().inc(), max)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(min(get().inc(), max)) }", "java.lang.Math.min"))
 fun ObservableChar.inc(max: Char) = apply { set(min(get().inc(), max)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(min(get().inc(), max)) }", "java.lang.Math.min"))
 fun ObservableLong.inc(max: Long) = apply { set(min(get().inc(), max)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(min(get().inc(), max)) }", "java.lang.Math.min"))
 fun ObservableShort.inc(max: Short) = apply { set(min(get().inc(), max)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(min(get().inc(), max)) }", "java.lang.Math.min"))
 fun ObservableFloat.inc(max: Float) = apply { set(min(get().inc(), max)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(min(get().inc(), max)) }", "java.lang.Math.min"))
 fun ObservableDouble.inc(max: Double) = apply { set(min(get().inc(), max)) }
 
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().dec()) }"))
 fun ObservableInt.dec() = apply { set(get().dec()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().dec()) }"))
 fun ObservableByte.dec() = apply { set(get().dec()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().dec()) }"))
 fun ObservableChar.dec() = apply { set(get().dec()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().dec()) }"))
 fun ObservableLong.dec() = apply { set(get().dec()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().dec()) }"))
 fun ObservableShort.dec() = apply { set(get().dec()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().dec()) }"))
 fun ObservableFloat.dec() = apply { set(get().dec()) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(get().dec()) }"))
 fun ObservableDouble.dec() = apply { set(get().dec()) }
 
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(max(get().dec(), min)) }", "java.lang.Math.max"))
 fun ObservableInt.dec(min: Int) = apply { set(max(get().dec(), min)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(max(get().dec(), min)) }", "java.lang.Math.max"))
 fun ObservableByte.dec(min: Byte) = apply { set(max(get().dec(), min)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(max(get().dec(), min)) }", "java.lang.Math.max"))
 fun ObservableChar.dec(min: Char) = apply { set(max(get().dec(), min)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(max(get().dec(), min)) }", "java.lang.Math.max"))
 fun ObservableLong.dec(min: Long) = apply { set(max(get().dec(), min)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(max(get().dec(), min)) }", "java.lang.Math.max"))
 fun ObservableShort.dec(min: Short) = apply { set(max(get().dec(), min)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(max(get().dec(), min)) }", "java.lang.Math.max"))
 fun ObservableFloat.dec(min: Float) = apply { set(max(get().dec(), min)) }
+@Deprecated("Would be removed in 1.3", ReplaceWith("apply { set(max(get().dec(), min)) }", "java.lang.Math.max"))
 fun ObservableDouble.dec(min: Double) = apply { set(max(get().dec(), min)) }
