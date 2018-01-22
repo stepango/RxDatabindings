@@ -28,6 +28,8 @@ class ObservableString(value: String = "") : ObservableField<String>(value), Par
 
     override fun writeToParcel(dest: Parcel, flags: Int) = dest.writeString(get())
 
+    override fun get(): String = super.get()!!
+
     companion object {
         internal const val serialVersionUID = 1L
 

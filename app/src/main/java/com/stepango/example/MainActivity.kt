@@ -9,8 +9,6 @@ import android.os.Parcelable
 import android.util.Log
 import com.stepango.example.databinding.ActivityMainBinding
 import com.stepango.rxdatabindings.ObservableString
-import com.stepango.rxdatabindings.dec
-import com.stepango.rxdatabindings.inc
 import com.stepango.rxdatabindings.observe
 import com.stepango.rxdatabindings.setTo
 import io.mironov.smuggler.AutoParcelable
@@ -55,8 +53,8 @@ class ViewModel(val state: ViewModelState) : ViewModelState by state {
                 .subscribe()
     }
 
-    fun incCounter() = counter.inc(10)
-    fun decCounter() = counter.dec(0)
+    fun incCounter() = counter.set(counter.get().inc())
+    fun decCounter() = counter.set(counter.get().dec())
 
 }
 
