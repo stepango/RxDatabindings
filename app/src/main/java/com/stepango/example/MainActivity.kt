@@ -1,3 +1,5 @@
+@file:SuppressLint("ParcelCreator")
+
 package com.stepango.example
 
 import android.annotation.SuppressLint
@@ -37,13 +39,11 @@ interface ViewModelState : Parcelable {
     val counter: ObservableInt
 }
 
-@SuppressLint("ParcelCreator")
 data class ViewModelStateImpl(
         override val text: ObservableString = ObservableString(),
         override val counter: ObservableInt = ObservableInt()
 ) : ViewModelState, AutoParcelable
 
-@SuppressLint("ParcelCreator")
 class ViewModel(val state: ViewModelState) : ViewModelState by state {
 
     init {
