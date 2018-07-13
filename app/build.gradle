@@ -27,12 +27,15 @@ android {
 }
 
 dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.51"
+
     compile project(':lib')
-//    compile "com.stepango.rxdatabindings:rxdatabindings:1.2.0"
-    compile "io.reactivex.rxjava2:rxjava:2.1.8"
+    compile "io.reactivex.rxjava2:rxjava:2.1.16"
+
     kapt "com.android.databinding:compiler:$gradle_plugin_version"
+
+    testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
 }
