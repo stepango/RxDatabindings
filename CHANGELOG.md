@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+Version 1.4.0 *(2018-07-18)*
+----------------------------
+
+* Make ObservableString setter null safe
+
+Version 1.3.0 *(2018-07-13)*
+----------------------------
+
+* Removed kOptional
+
 Version 1.1.1 *(2017-06-01)*
 ----------------------------
 
