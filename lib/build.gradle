@@ -28,17 +28,17 @@ android {
 dependencies {
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     provided "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    provided "com.android.databinding:library:$databinding_version"
-    provided "com.android.databinding:baseLibrary:$databinding_version"
-    provided "com.android.databinding:adapters:$databinding_version"
+    provided "com.android.databinding:library:$android_plugin_version"
+    provided "com.android.databinding:baseLibrary:$android_plugin_version"
+    provided "com.android.databinding:adapters:$android_plugin_version"
 }
 
 dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testImplementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    testImplementation "com.android.databinding:library:$databinding_version"
-    testImplementation "com.android.databinding:baseLibrary:$databinding_version"
-    testImplementation "com.android.databinding:adapters:$databinding_version"
+    testImplementation "com.android.databinding:library:$android_plugin_version"
+    testImplementation "com.android.databinding:baseLibrary:$android_plugin_version"
+    testImplementation "com.android.databinding:adapters:$android_plugin_version"
 
     testCompile 'junit:junit:4.12'
 }
