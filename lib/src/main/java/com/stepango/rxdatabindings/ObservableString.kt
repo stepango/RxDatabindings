@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.stepango.rxdatabindings
 
 import android.databinding.ObservableField
 import android.os.Parcel
 import android.os.Parcelable
+
 
 /**
  * Observable wrapper for non-nullable String that implements Parcelable contract
@@ -28,7 +30,10 @@ class ObservableString(value: String = "") : ObservableField<String>(value), Par
 
     override fun writeToParcel(dest: Parcel, flags: Int) = dest.writeString(get())
 
-    override fun get(): String = super.get()!!
+    override fun get(): String = super.get() ?: throw IllegalStateException()
+
+    @Suppress("RedundantOverride")
+    override fun set(value: String) = super.set(value)
 
     companion object {
         internal const val serialVersionUID = 1L
