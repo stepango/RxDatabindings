@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 ext {
     PUBLISH_GROUP_ID = 'com.stepango.rxdatabindings'
     PUBLISH_ARTIFACT_ID = 'rxdatabindings'
-    PUBLISH_VERSION = '1.3.0'
+    PUBLISH_VERSION = "$release_version"
 }
 
 android {
@@ -26,11 +26,19 @@ android {
 }
 
 dependencies {
-    provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    provided "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    provided "com.android.databinding:library:3.1.3"
-    provided "com.android.databinding:baseLibrary:3.1.3"
-    provided 'com.android.databinding:adapters:3.1.3'
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly "io.reactivex.rxjava2:rxjava:$rxJava_version"
+    compileOnly "com.android.databinding:library:$android_plugin_version"
+    compileOnly "com.android.databinding:baseLibrary:$android_plugin_version"
+    compileOnly "com.android.databinding:adapters:$android_plugin_version"
+}
+
+dependencies {
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
+    testImplementation "com.android.databinding:library:$android_plugin_version"
+    testImplementation "com.android.databinding:baseLibrary:$android_plugin_version"
+    testImplementation "com.android.databinding:adapters:$android_plugin_version"
 
     testCompile 'junit:junit:4.12'
 }
