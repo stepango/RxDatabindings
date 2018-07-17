@@ -31,6 +31,7 @@ dependencies {
 
     compile project(':lib')
     compile "io.reactivex.rxjava2:rxjava:$rxJava_version"
+    //compile "com.stepango.rxdatabindings:rxdatabindings:$release_version"
 
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
