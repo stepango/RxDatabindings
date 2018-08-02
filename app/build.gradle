@@ -1,7 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: "io.mironov.smuggler"
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'io.mironov.smuggler'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
 
 android {
     compileSdkVersion 27
@@ -28,15 +30,10 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compile "io.reactivex.rxjava2:rxjava:$rxJava_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
 
-    compile project(':lib')
-    //compile "com.stepango.rxdatabindings:rxdatabindings:$release_version"
+    implementation project(':lib')
+    //implementation "com.stepango.rxdatabindings:rxdatabindings:$release_version"
 
     kapt "com.android.databinding:compiler:$android_plugin_version"
-
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 }
