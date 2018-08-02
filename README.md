@@ -5,7 +5,7 @@ RxJava2 extensions for Android Databindings library
 
 Add RxDataBindings to your build.gradle
 ```
-compile "com.stepango.rxdatabindings:rxdatabindings:1.4.0"
+implementation "com.stepango.rxdatabindings:rxdatabindings:1.4.0"
 ```
 
 Basic example of usage:
