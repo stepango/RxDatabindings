@@ -18,7 +18,7 @@ import kotlin.properties.Delegates
 
 class MainActivity : Activity() {
 
-    var viewModel by Delegates.notNull<ViewModel>()
+    private var viewModel by Delegates.notNull<ViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,7 @@ class ViewModel(val state: ViewModelState) : ViewModelState by state {
 
     init {
         counter.observe(fireInitialValue = true)
-                .setTo(text) { "Wow! You count till $it" }
+                .setTo(text) { "Wow! You counted till $it" }
                 .doOnNext { Log.d("THREAD", Thread.currentThread().name) }
                 .subscribe()
     }

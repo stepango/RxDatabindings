@@ -1,5 +1,7 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
 
 ext {
     PUBLISH_GROUP_ID = 'com.stepango.rxdatabindings'
@@ -40,7 +42,7 @@ dependencies {
     testImplementation "com.android.databinding:baseLibrary:$android_plugin_version"
     testImplementation "com.android.databinding:adapters:$android_plugin_version"
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
