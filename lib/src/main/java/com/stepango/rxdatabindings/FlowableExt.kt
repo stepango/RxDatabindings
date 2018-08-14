@@ -16,17 +16,17 @@
 
 package com.stepango.rxdatabindings
 
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableByte
-import android.databinding.ObservableChar
-import android.databinding.ObservableDouble
-import android.databinding.ObservableField
-import android.databinding.ObservableFloat
-import android.databinding.ObservableInt
-import android.databinding.ObservableLong
-import android.databinding.ObservableParcelable
-import android.databinding.ObservableShort
 import android.os.Parcelable
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableByte
+import androidx.databinding.ObservableChar
+import androidx.databinding.ObservableDouble
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableFloat
+import androidx.databinding.ObservableInt
+import androidx.databinding.ObservableLong
+import androidx.databinding.ObservableParcelable
+import androidx.databinding.ObservableShort
 import io.reactivex.Flowable
 
 /**

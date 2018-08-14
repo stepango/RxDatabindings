@@ -4,8 +4,8 @@ package com.stepango.example
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.databinding.DataBindingUtil
-import android.databinding.ObservableInt
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableInt
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log

@@ -10,37 +10,34 @@ ext {
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding.enabled = true
 }
 
 dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compileOnly "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    compileOnly "com.android.databinding:library:$android_plugin_version"
-    compileOnly "com.android.databinding:baseLibrary:$android_plugin_version"
-    compileOnly "com.android.databinding:adapters:$android_plugin_version"
 }
 
 dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testImplementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    testImplementation "com.android.databinding:library:$android_plugin_version"
-    testImplementation "com.android.databinding:baseLibrary:$android_plugin_version"
-    testImplementation "com.android.databinding:adapters:$android_plugin_version"
 
     testImplementation 'junit:junit:4.12'
 }

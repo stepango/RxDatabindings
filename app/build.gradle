@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.2"
     defaultConfig {
         applicationId "com.stepango.example"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -34,6 +34,4 @@ dependencies {
 
     implementation project(':lib')
     //implementation "com.stepango.rxdatabindings:rxdatabindings:$release_version"
-
-    kapt "com.android.databinding:compiler:$android_plugin_version"
 }
