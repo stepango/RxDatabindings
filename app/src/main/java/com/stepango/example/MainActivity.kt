@@ -8,8 +8,11 @@ import android.databinding.DataBindingUtil
 import android.databinding.ObservableInt
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.SpannableString
+import android.text.style.AbsoluteSizeSpan
 import android.util.Log
 import com.stepango.example.databinding.ActivityMainBinding
+import com.stepango.rxdatabindings.ObservableSpannableString
 import com.stepango.rxdatabindings.ObservableString
 import com.stepango.rxdatabindings.observe
 import com.stepango.rxdatabindings.setTo
@@ -37,11 +40,13 @@ class MainActivity : Activity() {
 interface ViewModelState : Parcelable {
     val text: ObservableString
     val counter: ObservableInt
+    val styledText: ObservableSpannableString
 }
 
 data class ViewModelStateImpl(
         override val text: ObservableString = ObservableString(),
-        override val counter: ObservableInt = ObservableInt()
+        override val counter: ObservableInt = ObservableInt(),
+        override val styledText: ObservableSpannableString = ObservableSpannableString()
 ) : ViewModelState, AutoParcelable
 
 class ViewModel(val state: ViewModelState) : ViewModelState by state {
@@ -49,6 +54,11 @@ class ViewModel(val state: ViewModelState) : ViewModelState by state {
     init {
         counter.observe(fireInitialValue = true)
                 .setTo(text) { "Wow! You counted till $it" }
+                .setTo(styledText) {
+                    val awesome = SpannableString("Now that's... awesome!")
+                    awesome.setSpan(AbsoluteSizeSpan(it, true), 14, 22, 0)
+                    awesome
+                }
                 .doOnNext { Log.d("THREAD", Thread.currentThread().name) }
                 .subscribe()
     }

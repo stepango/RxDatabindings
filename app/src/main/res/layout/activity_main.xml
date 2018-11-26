@@ -44,5 +44,15 @@
             android:onClick="@{() -> viewModel.decCounter()}"
             android:visibility="@{viewModel.counter > 0 ? View.VISIBLE : View.GONE}"
             android:text="@string/press_me_now"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{viewModel.styledText}"
+            android:textSize="16sp"
+            tools:text="Now that's awesome!"/>
+
     </LinearLayout>
+
 </layout>
