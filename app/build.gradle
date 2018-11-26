@@ -35,5 +35,5 @@ dependencies {
     implementation project(':lib')
     //implementation "com.stepango.rxdatabindings:rxdatabindings:$release_version"
 
-    kapt "com.android.databinding:compiler:$android_plugin_version"
+    //kapt "com.android.databinding:compiler:$android_plugin_version"
 }
