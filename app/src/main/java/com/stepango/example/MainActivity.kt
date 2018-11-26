@@ -55,9 +55,9 @@ class ViewModel(val state: ViewModelState) : ViewModelState by state {
         counter.observe(fireInitialValue = true)
                 .setTo(text) { "Wow! You counted till $it" }
                 .setTo(styledText) {
-                    val awesome = SpannableString("Now that's... awesome!")
-                    awesome.setSpan(AbsoluteSizeSpan(it, true), 14, 22, 0)
-                    awesome
+                    SpannableString("Now that's... awesome!").apply {
+                        setSpan(AbsoluteSizeSpan(it, true), 14, 22, 0)
+                    }
                 }
                 .doOnNext { Log.d("THREAD", Thread.currentThread().name) }
                 .subscribe()
