@@ -25,17 +25,13 @@ class ObservableSpannableString(
     @Suppress("RedundantOverride")
     override fun set(value: SpannableString) = super.set(value)
 
-    companion object {
-        internal const val serialVersionUID = 1L
+    companion object CREATOR : Parcelable.Creator<ObservableSpannableString> {
 
-        @JvmField
-        val CREATOR: Parcelable.Creator<ObservableSpannableString> = object : Parcelable.Creator<ObservableSpannableString> {
+        override fun createFromParcel(source: Parcel) = ObservableSpannableString(
+                TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source) as SpannableString
+        )
 
-            override fun createFromParcel(source: Parcel) = ObservableSpannableString(
-                    TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source) as SpannableString
-            )
-
-            override fun newArray(size: Int): Array<ObservableSpannableString?> = arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<ObservableSpannableString?> = arrayOfNulls(size)
     }
+
 }

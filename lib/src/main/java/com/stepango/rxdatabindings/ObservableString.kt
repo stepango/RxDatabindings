@@ -35,15 +35,11 @@ class ObservableString(value: String = "") : ObservableField<String>(value), Par
     @Suppress("RedundantOverride")
     override fun set(value: String) = super.set(value)
 
-    companion object {
-        internal const val serialVersionUID = 1L
+    companion object CREATOR : Parcelable.Creator<ObservableString> {
 
-        @JvmField
-        val CREATOR: Parcelable.Creator<ObservableString> = object : Parcelable.Creator<ObservableString> {
+        override fun createFromParcel(source: Parcel) = ObservableString(source.readString() ?: "")
 
-            override fun createFromParcel(source: Parcel) = ObservableString(source.readString())
-
-            override fun newArray(size: Int): Array<ObservableString?> = arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<ObservableString?> = arrayOfNulls(size)
     }
+
 }
