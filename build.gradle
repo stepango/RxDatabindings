@@ -2,11 +2,11 @@
 
 buildscript {
     ext {
-        release_version = '1.4.0'
+        release_version = '1.5.0'
 
-        kotlin_version = '1.2.60'
-        rxJava_version = '2.2.0'
-        android_plugin_version = '3.1.3'
+        kotlin_version = '1.3.10'
+        rxJava_version = '2.2.4'
+        android_plugin_version = '3.2.1'
         smuggler_version = '0.14.0'
     }
 
