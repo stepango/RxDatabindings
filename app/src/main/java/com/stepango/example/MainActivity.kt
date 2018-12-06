@@ -12,12 +12,13 @@ import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
 import android.util.Log
 import com.stepango.example.databinding.ActivityMainBinding
-import com.stepango.rxdatabindings.ObservableSpannableString
+import com.stepango.rxdatabindings.ObservableSpanned
 import com.stepango.rxdatabindings.ObservableString
 import com.stepango.rxdatabindings.observe
 import com.stepango.rxdatabindings.setTo
 import io.mironov.smuggler.AutoParcelable
 import kotlin.properties.Delegates
+
 
 class MainActivity : Activity() {
 
@@ -40,13 +41,13 @@ class MainActivity : Activity() {
 interface ViewModelState : Parcelable {
     val text: ObservableString
     val counter: ObservableInt
-    val styledText: ObservableSpannableString
+    val styledText: ObservableSpanned
 }
 
 data class ViewModelStateImpl(
         override val text: ObservableString = ObservableString(),
         override val counter: ObservableInt = ObservableInt(),
-        override val styledText: ObservableSpannableString = ObservableSpannableString()
+        override val styledText: ObservableSpanned = ObservableSpanned()
 ) : ViewModelState, AutoParcelable
 
 class ViewModel(val state: ViewModelState) : ViewModelState by state {
@@ -73,7 +74,7 @@ inline fun <reified T : Parcelable> Bundle?.extract(defaultValueProducer: () -> 
     val key = T::class.java.name
     return if (containsKey(key)) {
         Log.d("State::", "restored $key")
-        getParcelable(key)
+        getParcelable(key) ?: throw IllegalStateException("null Parcelable")
     } else {
         defaultValueProducer()
     }

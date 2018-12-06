@@ -10,6 +10,7 @@ import android.text.TextUtils
 /**
  * Observable wrapper for non-nullable SpannableString that implements Parcelable contract
  */
+@Deprecated("Use ObservableSpanned instead", ReplaceWith("ObservableSpanned"))
 class ObservableSpannableString(
         value: SpannableString = SpannableString("")
 ) :
