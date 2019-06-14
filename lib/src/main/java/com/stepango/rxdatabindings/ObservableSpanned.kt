@@ -17,7 +17,7 @@ class ObservableSpanned(
         ObservableField<Spanned>(value),
         Parcelable {
 
-    override fun describeContents(): Int = 0
+    override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = TextUtils.writeToParcel(get(), dest, flags)
 
