@@ -17,8 +17,8 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,21 +28,23 @@ android {
 }
 
 dependencies {
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compileOnly "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    compileOnly "com.android.databinding:library:$android_plugin_version"
-    compileOnly "com.android.databinding:baseLibrary:$android_plugin_version"
-    compileOnly "com.android.databinding:adapters:$android_plugin_version"
-}
+    compileOnly(
+            "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            "io.reactivex.rxjava2:rxjava:$rxJava_version",
+            "com.android.databinding:library:$android_plugin_version",
+            "com.android.databinding:baseLibrary:$android_plugin_version",
+            "com.android.databinding:adapters:$android_plugin_version",
+    )
 
-dependencies {
-    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    testImplementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    testImplementation "com.android.databinding:library:$android_plugin_version"
-    testImplementation "com.android.databinding:baseLibrary:$android_plugin_version"
-    testImplementation "com.android.databinding:adapters:$android_plugin_version"
+    testImplementation(
+            "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            "io.reactivex.rxjava2:rxjava:$rxJava_version",
+            "com.android.databinding:library:$android_plugin_version",
+            "com.android.databinding:baseLibrary:$android_plugin_version",
+            "com.android.databinding:adapters:$android_plugin_version",
 
-    testImplementation 'junit:junit:4.12'
+            'junit:junit:4.12',
+    )
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

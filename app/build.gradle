@@ -6,8 +6,10 @@ plugins {
 }
 
 android {
+
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
+
     defaultConfig {
         applicationId "com.stepango.example"
         minSdkVersion 16
@@ -16,6 +18,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         debug {
 
@@ -25,13 +28,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     dataBinding.enabled = true
+
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
 
-    implementation project(':lib')
-    //implementation "com.stepango.rxdatabindings:rxdatabindings:$release_version"
+    implementation(
+            project(':lib'),
+            //"com.stepango.rxdatabindings:rxdatabindings:$release_version",
+
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            "io.reactivex.rxjava2:rxjava:$rxJava_version",
+    )
+
 }
