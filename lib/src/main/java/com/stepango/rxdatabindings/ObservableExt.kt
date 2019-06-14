@@ -27,7 +27,9 @@ import android.databinding.ObservableLong
 import android.databinding.ObservableParcelable
 import android.databinding.ObservableShort
 import android.os.Parcelable
+import android.text.Spanned
 import io.reactivex.Observable
+
 
 /**
  * Set value to field with corresponding type
@@ -76,6 +78,12 @@ fun Observable<Double>.setTo(field: ObservableDouble): Observable<Double> = doOn
  * @param field observable value holder
  */
 fun Observable<Boolean>.setTo(field: ObservableBoolean): Observable<Boolean> = doOnNext { field.set(it) }
+
+fun Observable<String>.setTo(field: ObservableString): Observable<String> = doOnNext { field.set(it) }
+
+fun Observable<Spanned>.setTo(field: ObservableSpanned): Observable<Spanned> = doOnNext { field.set(it) }
+
+fun Observable<Number>.setTo(field: ObservableNumber): Observable<Number> = doOnNext { field.set(it) }
 
 /**
  * Set value to field with corresponding type
@@ -169,6 +177,21 @@ inline fun <T : Any> Observable<T>.setTo(
         crossinline transformer: (T) -> Boolean
 ): Observable<T> = doOnNext { field.set(transformer(it)) }
 
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableString,
+        crossinline transformer: (T) -> String
+): Observable<T> = doOnNext { field.set(transformer(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableSpanned,
+        crossinline transformer: (T) -> Spanned
+): Observable<T> = doOnNext { field.set(transformer(it)) }
+
+inline fun <T : Any> Observable<T>.setTo(
+        field: ObservableNumber,
+        crossinline transformer: (T) -> Number
+): Observable<T> = doOnNext { field.set(transformer(it)) }
+
 /**
  * Set transformed value to field with corresponding type
  * @param field observable value holder
@@ -196,7 +219,7 @@ inline fun <T : Any, R : Parcelable> Observable<T>.setTo(
 inline fun <T : Any> Observable<T>.safeSetTo(
         field: ObservableInt,
         crossinline transformer: (T) -> Int?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -205,7 +228,7 @@ inline fun <T : Any> Observable<T>.safeSetTo(
 inline fun <T : Any> Observable<T>.safeSetTo(
         field: ObservableByte,
         crossinline transformer: (T) -> Byte?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -214,7 +237,7 @@ inline fun <T : Any> Observable<T>.safeSetTo(
 inline fun <T : Any> Observable<T>.safeSetTo(
         field: ObservableChar,
         crossinline transformer: (T) -> Char?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -223,7 +246,7 @@ inline fun <T : Any> Observable<T>.safeSetTo(
 inline fun <T : Any> Observable<T>.safeSetTo(
         field: ObservableLong,
         crossinline transformer: (T) -> Long?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -232,7 +255,7 @@ inline fun <T : Any> Observable<T>.safeSetTo(
 inline fun <T : Any> Observable<T>.safeSetTo(
         field: ObservableShort,
         crossinline transformer: (T) -> Short?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -241,7 +264,7 @@ inline fun <T : Any> Observable<T>.safeSetTo(
 inline fun <T : Any> Observable<T>.safeSetTo(
         field: ObservableFloat,
         crossinline transformer: (T) -> Float?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -250,7 +273,7 @@ inline fun <T : Any> Observable<T>.safeSetTo(
 inline fun <T : Any> Observable<T>.safeSetTo(
         field: ObservableDouble,
         crossinline transformer: (T) -> Double?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -259,7 +282,22 @@ inline fun <T : Any> Observable<T>.safeSetTo(
 inline fun <T : Any> Observable<T>.safeSetTo(
         field: ObservableBoolean,
         crossinline transformer: (T) -> Boolean?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableString,
+        crossinline transformer: (T) -> String?
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableSpanned,
+        crossinline transformer: (T) -> Spanned?
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Observable<T>.safeSetTo(
+        field: ObservableNumber,
+        crossinline transformer: (T) -> Number?
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -268,7 +306,7 @@ inline fun <T : Any> Observable<T>.safeSetTo(
 inline fun <T : Any, R : Any> Observable<T>.safeSetTo(
         field: ObservableField<in R>,
         crossinline transformer: (T) -> R?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -277,4 +315,4 @@ inline fun <T : Any, R : Any> Observable<T>.safeSetTo(
 inline fun <T : Any, R : Parcelable> Observable<T>.safeSetTo(
         field: ObservableParcelable<in R>,
         crossinline transformer: (T) -> R?
-): Observable<T> = doOnNext { transformer(it)?.let { field.set(it) } }
+): Observable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }

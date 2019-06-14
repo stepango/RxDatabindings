@@ -17,9 +17,15 @@ package com.stepango.rxdatabindings
 
 import android.databinding.ObservableField
 
+
 /**
  * Observable wrapper for number
  */
 class ObservableNumber(initialValue: Number) : ObservableField<Number>(initialValue) {
-    override fun get(): Number = super.get()!!
+
+    override fun get(): Number = super.get() ?: throw IllegalStateException()
+
+    @Suppress("RedundantOverride")
+    override fun set(value: Number) = super.set(value)
+
 }

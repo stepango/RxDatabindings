@@ -26,7 +26,7 @@ import android.os.Parcelable
  */
 class ObservableString(value: String = "") : ObservableField<String>(value), Parcelable {
 
-    override fun describeContents(): Int = 0
+    override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = dest.writeString(get())
 
