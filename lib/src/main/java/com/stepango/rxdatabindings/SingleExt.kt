@@ -27,7 +27,9 @@ import android.databinding.ObservableLong
 import android.databinding.ObservableParcelable
 import android.databinding.ObservableShort
 import android.os.Parcelable
+import android.text.Spanned
 import io.reactivex.Single
+
 
 /**
  * Set value to field with corresponding type
@@ -76,6 +78,12 @@ fun Single<Double>.setTo(field: ObservableDouble): Single<Double> = doOnSuccess 
  * @param field observable value holder
  */
 fun Single<Boolean>.setTo(field: ObservableBoolean): Single<Boolean> = doOnSuccess { field.set(it) }
+
+fun Single<String>.setTo(field: ObservableString): Single<String> = doOnSuccess { field.set(it) }
+
+fun Single<Spanned>.setTo(field: ObservableSpanned): Single<Spanned> = doOnSuccess { field.set(it) }
+
+fun Single<Number>.setTo(field: ObservableNumber): Single<Number> = doOnSuccess { field.set(it) }
 
 /**
  * Set value to field with corresponding type
@@ -169,6 +177,21 @@ inline fun <T : Any> Single<T>.setTo(
         crossinline transformer: (T) -> Boolean
 ): Single<T> = doOnSuccess { field.set(transformer(it)) }
 
+inline fun <T : Any> Single<T>.setTo(
+        field: ObservableString,
+        crossinline transformer: (T) -> String
+): Single<T> = doOnSuccess { field.set(transformer(it)) }
+
+inline fun <T : Any> Single<T>.setTo(
+        field: ObservableSpanned,
+        crossinline transformer: (T) -> Spanned
+): Single<T> = doOnSuccess { field.set(transformer(it)) }
+
+inline fun <T : Any> Single<T>.setTo(
+        field: ObservableNumber,
+        crossinline transformer: (T) -> Number
+): Single<T> = doOnSuccess { field.set(transformer(it)) }
+
 /**
  * Set transformed value to field with corresponding type
  * @param field observable value holder
@@ -196,7 +219,7 @@ inline fun <T : Any, R : Parcelable> Single<T>.setTo(
 inline fun <T : Any> Single<T>.safeSetTo(
         field: ObservableInt,
         crossinline transformer: (T) -> Int?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -205,7 +228,7 @@ inline fun <T : Any> Single<T>.safeSetTo(
 inline fun <T : Any> Single<T>.safeSetTo(
         field: ObservableByte,
         crossinline transformer: (T) -> Byte?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -214,7 +237,7 @@ inline fun <T : Any> Single<T>.safeSetTo(
 inline fun <T : Any> Single<T>.safeSetTo(
         field: ObservableChar,
         crossinline transformer: (T) -> Char?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -223,7 +246,7 @@ inline fun <T : Any> Single<T>.safeSetTo(
 inline fun <T : Any> Single<T>.safeSetTo(
         field: ObservableLong,
         crossinline transformer: (T) -> Long?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -232,7 +255,7 @@ inline fun <T : Any> Single<T>.safeSetTo(
 inline fun <T : Any> Single<T>.safeSetTo(
         field: ObservableShort,
         crossinline transformer: (T) -> Short?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -241,7 +264,7 @@ inline fun <T : Any> Single<T>.safeSetTo(
 inline fun <T : Any> Single<T>.safeSetTo(
         field: ObservableFloat,
         crossinline transformer: (T) -> Float?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -250,7 +273,7 @@ inline fun <T : Any> Single<T>.safeSetTo(
 inline fun <T : Any> Single<T>.safeSetTo(
         field: ObservableDouble,
         crossinline transformer: (T) -> Double?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -259,7 +282,22 @@ inline fun <T : Any> Single<T>.safeSetTo(
 inline fun <T : Any> Single<T>.safeSetTo(
         field: ObservableBoolean,
         crossinline transformer: (T) -> Boolean?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Single<T>.safeSetTo(
+        field: ObservableString,
+        crossinline transformer: (T) -> String?
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Single<T>.safeSetTo(
+        field: ObservableSpanned,
+        crossinline transformer: (T) -> Spanned?
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Single<T>.safeSetTo(
+        field: ObservableNumber,
+        crossinline transformer: (T) -> Number?
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -268,7 +306,7 @@ inline fun <T : Any> Single<T>.safeSetTo(
 inline fun <T : Any, R : Any> Single<T>.safeSetTo(
         field: ObservableField<in R>,
         crossinline transformer: (T) -> R?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -277,4 +315,4 @@ inline fun <T : Any, R : Any> Single<T>.safeSetTo(
 inline fun <T : Any, R : Parcelable> Single<T>.safeSetTo(
         field: ObservableParcelable<in R>,
         crossinline transformer: (T) -> R?
-): Single<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Single<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }

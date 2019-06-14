@@ -27,7 +27,9 @@ import android.databinding.ObservableLong
 import android.databinding.ObservableParcelable
 import android.databinding.ObservableShort
 import android.os.Parcelable
+import android.text.Spanned
 import io.reactivex.Maybe
+
 
 /**
  * Set value to field with corresponding type
@@ -76,6 +78,12 @@ fun Maybe<Double>.setTo(field: ObservableDouble): Maybe<Double> = doOnSuccess { 
  * @param field observable value holder
  */
 fun Maybe<Boolean>.setTo(field: ObservableBoolean): Maybe<Boolean> = doOnSuccess { field.set(it) }
+
+fun Maybe<String>.setTo(field: ObservableString): Maybe<String> = doOnSuccess { field.set(it) }
+
+fun Maybe<Spanned>.setTo(field: ObservableSpanned): Maybe<Spanned> = doOnSuccess { field.set(it) }
+
+fun Maybe<Number>.setTo(field: ObservableNumber): Maybe<Number> = doOnSuccess { field.set(it) }
 
 /**
  * Set value to field with corresponding type
@@ -169,6 +177,21 @@ inline fun <T : Any> Maybe<T>.setTo(
         crossinline transformer: (T) -> Boolean
 ): Maybe<T> = doOnSuccess { field.set(transformer(it)) }
 
+inline fun <T : Any> Maybe<T>.setTo(
+        field: ObservableString,
+        crossinline transformer: (T) -> String
+): Maybe<T> = doOnSuccess { field.set(transformer(it)) }
+
+inline fun <T : Any> Maybe<T>.setTo(
+        field: ObservableSpanned,
+        crossinline transformer: (T) -> Spanned
+): Maybe<T> = doOnSuccess { field.set(transformer(it)) }
+
+inline fun <T : Any> Maybe<T>.setTo(
+        field: ObservableNumber,
+        crossinline transformer: (T) -> Number
+): Maybe<T> = doOnSuccess { field.set(transformer(it)) }
+
 /**
  * Set transformed value to field with corresponding type
  * @param field observable value holder
@@ -196,7 +219,7 @@ inline fun <T : Any, R : Parcelable> Maybe<T>.setTo(
 inline fun <T : Any> Maybe<T>.safeSetTo(
         field: ObservableInt,
         crossinline transformer: (T) -> Int?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -205,7 +228,7 @@ inline fun <T : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any> Maybe<T>.safeSetTo(
         field: ObservableByte,
         crossinline transformer: (T) -> Byte?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -214,7 +237,7 @@ inline fun <T : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any> Maybe<T>.safeSetTo(
         field: ObservableChar,
         crossinline transformer: (T) -> Char?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -223,7 +246,7 @@ inline fun <T : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any> Maybe<T>.safeSetTo(
         field: ObservableLong,
         crossinline transformer: (T) -> Long?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -232,7 +255,7 @@ inline fun <T : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any> Maybe<T>.safeSetTo(
         field: ObservableShort,
         crossinline transformer: (T) -> Short?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -241,7 +264,7 @@ inline fun <T : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any> Maybe<T>.safeSetTo(
         field: ObservableFloat,
         crossinline transformer: (T) -> Float?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -250,7 +273,7 @@ inline fun <T : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any> Maybe<T>.safeSetTo(
         field: ObservableDouble,
         crossinline transformer: (T) -> Double?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -259,7 +282,22 @@ inline fun <T : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any> Maybe<T>.safeSetTo(
         field: ObservableBoolean,
         crossinline transformer: (T) -> Boolean?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Maybe<T>.safeSetTo(
+        field: ObservableString,
+        crossinline transformer: (T) -> String?
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Maybe<T>.safeSetTo(
+        field: ObservableSpanned,
+        crossinline transformer: (T) -> Spanned?
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
+
+inline fun <T : Any> Maybe<T>.safeSetTo(
+        field: ObservableNumber,
+        crossinline transformer: (T) -> Number?
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -268,7 +306,7 @@ inline fun <T : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any, R : Any> Maybe<T>.safeSetTo(
         field: ObservableField<in R>,
         crossinline transformer: (T) -> R?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -277,4 +315,4 @@ inline fun <T : Any, R : Any> Maybe<T>.safeSetTo(
 inline fun <T : Any, R : Parcelable> Maybe<T>.safeSetTo(
         field: ObservableParcelable<in R>,
         crossinline transformer: (T) -> R?
-): Maybe<T> = doOnSuccess { transformer(it)?.let { field.set(it) } }
+): Maybe<T> = doOnSuccess { tValue -> transformer(tValue)?.let { field.set(it) } }
