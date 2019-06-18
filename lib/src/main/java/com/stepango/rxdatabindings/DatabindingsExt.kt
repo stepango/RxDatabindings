@@ -32,7 +32,6 @@ import io.reactivex.Scheduler
 import android.databinding.Observable as DataBindingObservable
 
 
-@Suppress("UNCHECKED_CAST")
 internal inline fun <T : DataBindingObservable, R : Any?> T.observe(
     scheduler: Scheduler,
     fireInitialValue: Boolean,
@@ -47,8 +46,36 @@ internal inline fun <T : DataBindingObservable, R : Any?> T.observe(
     }
 
     object : DataBindingObservable.OnPropertyChangedCallback() {
+        @Suppress("UNCHECKED_CAST")
         override fun onPropertyChanged(observable: DataBindingObservable, id: Int) = if (!source.isDisposed) try {
             source.onNext(transformer(observable as T))
+        } catch (e: Exception) {
+            source.onError(e)
+        } else Unit
+    }.let {
+        source.setCancellable { removeOnPropertyChangedCallback(it) }
+        addOnPropertyChangedCallback(it)
+    }
+
+}.subscribeOn(scheduler)
+
+internal inline fun <T : DataBindingObservable, R : Any> T.safeObserve(
+    scheduler: Scheduler,
+    fireInitialValue: Boolean,
+    crossinline transformer: (T) -> R?
+): Observable<R> = create<R> { source ->
+
+    if (fireInitialValue && !source.isDisposed) try {
+        transformer(this)?.let { source.onNext(it) }
+    } catch (e: Exception) {
+        source.onError(e)
+        return@create
+    }
+
+    object : DataBindingObservable.OnPropertyChangedCallback() {
+        @Suppress("UNCHECKED_CAST")
+        override fun onPropertyChanged(observable: DataBindingObservable, id: Int) = if (!source.isDisposed) try {
+            transformer(observable as T)?.let { source.onNext(it) } ?: Unit
         } catch (e: Exception) {
             source.onError(e)
         } else Unit
@@ -101,3 +128,13 @@ fun <T : Parcelable> ObservableParcelable<T>.observe(
     scheduler: Scheduler = dataBindingsScheduler,
     fireInitialValue: Boolean = true
 ) = observe(scheduler, fireInitialValue) { it.get() }
+
+fun <T : Any> ObservableField<T>.safeObserve(
+    scheduler: Scheduler = dataBindingsScheduler,
+    fireInitialValue: Boolean = true
+) = safeObserve(scheduler, fireInitialValue) { it.get() }
+
+fun <T : Parcelable> ObservableParcelable<T>.safeObserve(
+    scheduler: Scheduler = dataBindingsScheduler,
+    fireInitialValue: Boolean = true
+) = safeObserve(scheduler, fireInitialValue) { it.get() }
