@@ -20,4 +20,4 @@ import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 
 
-val dataBindingsScheduler: Scheduler = Schedulers.io()
+var rxDataBindingsScheduler: Scheduler = Schedulers.io()
