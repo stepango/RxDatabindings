@@ -1,8 +1,5 @@
-@file:SuppressLint("ParcelCreator")
-
 package com.stepango.example
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableInt
@@ -16,7 +13,7 @@ import com.stepango.rxdatabindings.ObservableSpanned
 import com.stepango.rxdatabindings.ObservableString
 import com.stepango.rxdatabindings.observe
 import com.stepango.rxdatabindings.setTo
-import io.mironov.smuggler.AutoParcelable
+import kotlinx.android.parcel.Parcelize
 import kotlin.properties.Delegates
 
 
@@ -44,12 +41,14 @@ interface ViewModelState : Parcelable {
     val styledText: ObservableSpanned
 }
 
+@Parcelize
 data class ViewModelStateImpl(
         override val text: ObservableString = ObservableString(),
         override val counter: ObservableInt = ObservableInt(),
         override val styledText: ObservableSpanned = ObservableSpanned()
-) : ViewModelState, AutoParcelable
+) : ViewModelState
 
+@Parcelize
 class ViewModel(val state: ViewModelState) : ViewModelState by state {
 
     init {
