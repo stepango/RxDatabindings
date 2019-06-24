@@ -27,7 +27,6 @@ import android.databinding.ObservableParcelable
 import android.databinding.ObservableShort
 import android.os.Parcelable
 import io.reactivex.Observable
-import io.reactivex.Observable.create
 import io.reactivex.Scheduler
 import android.databinding.Observable as DataBindingObservable
 
@@ -36,7 +35,7 @@ internal inline fun <T : DataBindingObservable, R : Any?> T.observe(
     scheduler: Scheduler,
     fireInitialValue: Boolean,
     crossinline transformer: (T) -> R
-): Observable<R> = create<R> { source ->
+): Observable<R> = Observable.create<R> { source ->
 
     if (fireInitialValue && !source.isDisposed) try {
         source.onNext(transformer(this))
@@ -63,7 +62,7 @@ internal inline fun <T : DataBindingObservable, R : Any> T.safeObserve(
     scheduler: Scheduler,
     fireInitialValue: Boolean,
     crossinline transformer: (T) -> R?
-): Observable<R> = create<R> { source ->
+): Observable<R> = Observable.create<R> { source ->
 
     if (fireInitialValue && !source.isDisposed) try {
         transformer(this)?.let { source.onNext(it) }
