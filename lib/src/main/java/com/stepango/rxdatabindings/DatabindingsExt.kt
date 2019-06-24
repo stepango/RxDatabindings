@@ -32,7 +32,7 @@ import android.databinding.Observable as DataBindingObservable
 
 
 internal inline fun <T : DataBindingObservable, R : Any?> T.observe(
-    scheduler: Scheduler,
+    scheduler: Scheduler?,
     fireInitialValue: Boolean,
     crossinline transformer: (T) -> R
 ): Observable<R> = Observable.create<R> { source ->
@@ -56,10 +56,10 @@ internal inline fun <T : DataBindingObservable, R : Any?> T.observe(
         addOnPropertyChangedCallback(it)
     }
 
-}.subscribeOn(scheduler)
+}.let { if (scheduler != null) it.subscribeOn(scheduler) else it }
 
 internal inline fun <T : DataBindingObservable, R : Any> T.safeObserve(
-    scheduler: Scheduler,
+    scheduler: Scheduler?,
     fireInitialValue: Boolean,
     crossinline transformer: (T) -> R?
 ): Observable<R> = Observable.create<R> { source ->
@@ -83,57 +83,57 @@ internal inline fun <T : DataBindingObservable, R : Any> T.safeObserve(
         addOnPropertyChangedCallback(it)
     }
 
-}.subscribeOn(scheduler)
+}.let { if (scheduler != null) it.subscribeOn(scheduler) else it }
 
-fun ObservableInt.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableInt.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableByte.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableByte.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableChar.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableChar.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableLong.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableLong.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableShort.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableShort.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableFloat.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableFloat.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableDouble.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableDouble.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableBoolean.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableBoolean.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableString.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableString.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableSpanned.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableSpanned.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
-fun ObservableNumber.observe(scheduler: Scheduler = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
+fun ObservableNumber.observe(scheduler: Scheduler? = rxDataBindingsScheduler, fireInitialValue: Boolean = true) =
     observe(scheduler, fireInitialValue) { it.get() }
 
 fun <T : Any> ObservableField<T>.observe(
-    scheduler: Scheduler = rxDataBindingsScheduler,
+    scheduler: Scheduler? = rxDataBindingsScheduler,
     fireInitialValue: Boolean = true
 ) = observe(scheduler, fireInitialValue) { it.get() }
 
 fun <T : Parcelable> ObservableParcelable<T>.observe(
-    scheduler: Scheduler = rxDataBindingsScheduler,
+    scheduler: Scheduler? = rxDataBindingsScheduler,
     fireInitialValue: Boolean = true
 ) = observe(scheduler, fireInitialValue) { it.get() }
 
 fun <T : Any> ObservableField<T>.safeObserve(
-    scheduler: Scheduler = rxDataBindingsScheduler,
+    scheduler: Scheduler? = rxDataBindingsScheduler,
     fireInitialValue: Boolean = true
 ) = safeObserve(scheduler, fireInitialValue) { it.get() }
 
 fun <T : Parcelable> ObservableParcelable<T>.safeObserve(
-    scheduler: Scheduler = rxDataBindingsScheduler,
+    scheduler: Scheduler? = rxDataBindingsScheduler,
     fireInitialValue: Boolean = true
 ) = safeObserve(scheduler, fireInitialValue) { it.get() }
