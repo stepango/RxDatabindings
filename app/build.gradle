@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
-    id 'io.mironov.smuggler'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 }
 
@@ -12,25 +12,27 @@ android {
 
     defaultConfig {
         applicationId "com.stepango.example"
+
         minSdkVersion 16
         targetSdkVersion 28
+
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        debug {
-
-        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
     }
 
     dataBinding.enabled = true
 
+}
+
+androidExtensions {
+    features = ["parcelize"]
 }
 
 dependencies {

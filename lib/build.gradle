@@ -15,14 +15,14 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode release_code
+        versionName "$release_version"
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
     }
 }
