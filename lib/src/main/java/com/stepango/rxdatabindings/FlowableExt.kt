@@ -35,67 +35,67 @@ import io.reactivex.Flowable
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun Flowable<Int>.setTo(field: ObservableInt): Flowable<Int> = doOnNext { field.set(it) }
+fun Flowable<Int>.setTo(field: ObservableInt): Flowable<Int> = doOnNext(field::set)
 
 /**
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun Flowable<Byte>.setTo(field: ObservableByte): Flowable<Byte> = doOnNext { field.set(it) }
+fun Flowable<Byte>.setTo(field: ObservableByte): Flowable<Byte> = doOnNext(field::set)
 
 /**
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun Flowable<Char>.setTo(field: ObservableChar): Flowable<Char> = doOnNext { field.set(it) }
+fun Flowable<Char>.setTo(field: ObservableChar): Flowable<Char> = doOnNext(field::set)
 
 /**
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun Flowable<Long>.setTo(field: ObservableLong): Flowable<Long> = doOnNext { field.set(it) }
+fun Flowable<Long>.setTo(field: ObservableLong): Flowable<Long> = doOnNext(field::set)
 
 /**
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun Flowable<Short>.setTo(field: ObservableShort): Flowable<Short> = doOnNext { field.set(it) }
+fun Flowable<Short>.setTo(field: ObservableShort): Flowable<Short> = doOnNext(field::set)
 
 /**
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun Flowable<Float>.setTo(field: ObservableFloat): Flowable<Float> = doOnNext { field.set(it) }
+fun Flowable<Float>.setTo(field: ObservableFloat): Flowable<Float> = doOnNext(field::set)
 
 /**
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun Flowable<Double>.setTo(field: ObservableDouble): Flowable<Double> = doOnNext { field.set(it) }
+fun Flowable<Double>.setTo(field: ObservableDouble): Flowable<Double> = doOnNext(field::set)
 
 /**
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun Flowable<Boolean>.setTo(field: ObservableBoolean): Flowable<Boolean> = doOnNext { field.set(it) }
+fun Flowable<Boolean>.setTo(field: ObservableBoolean): Flowable<Boolean> = doOnNext(field::set)
 
-fun Flowable<String>.setTo(field: ObservableString): Flowable<String> = doOnNext { field.set(it) }
+fun Flowable<String>.setTo(field: ObservableString): Flowable<String> = doOnNext(field::set)
 
-fun Flowable<Spanned>.setTo(field: ObservableSpanned): Flowable<Spanned> = doOnNext { field.set(it) }
+fun Flowable<Spanned>.setTo(field: ObservableSpanned): Flowable<Spanned> = doOnNext(field::set)
 
-fun Flowable<Number>.setTo(field: ObservableNumber): Flowable<Number> = doOnNext { field.set(it) }
-
-/**
- * Set value to field with corresponding type
- * @param field observable value holder
- */
-fun <T : Any> Flowable<T>.setTo(field: ObservableField<in T>): Flowable<T> = doOnNext { field.set(it) }
+fun Flowable<Number>.setTo(field: ObservableNumber): Flowable<Number> = doOnNext(field::set)
 
 /**
  * Set value to field with corresponding type
  * @param field observable value holder
  */
-fun <T : Parcelable> Flowable<T>.setTo(field: ObservableParcelable<in T>): Flowable<T> = doOnNext { field.set(it) }
+fun <T : Any> Flowable<T>.setTo(field: ObservableField<in T>): Flowable<T> = doOnNext(field::set)
+
+/**
+ * Set value to field with corresponding type
+ * @param field observable value holder
+ */
+fun <T : Parcelable> Flowable<T>.setTo(field: ObservableParcelable<in T>): Flowable<T> = doOnNext(field::set)
 
 /**
  * Set transformed value to field with corresponding type
@@ -219,7 +219,7 @@ inline fun <T : Any, R : Parcelable> Flowable<T>.setTo(
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableInt,
         crossinline transformer: (T) -> Int?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -228,7 +228,7 @@ inline fun <T : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableByte,
         crossinline transformer: (T) -> Byte?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -237,7 +237,7 @@ inline fun <T : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableChar,
         crossinline transformer: (T) -> Char?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -246,7 +246,7 @@ inline fun <T : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableLong,
         crossinline transformer: (T) -> Long?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -255,7 +255,7 @@ inline fun <T : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableShort,
         crossinline transformer: (T) -> Short?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -264,7 +264,7 @@ inline fun <T : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableFloat,
         crossinline transformer: (T) -> Float?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -273,7 +273,7 @@ inline fun <T : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableDouble,
         crossinline transformer: (T) -> Double?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -282,22 +282,22 @@ inline fun <T : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableBoolean,
         crossinline transformer: (T) -> Boolean?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableString,
         crossinline transformer: (T) -> String?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableSpanned,
         crossinline transformer: (T) -> Spanned?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 inline fun <T : Any> Flowable<T>.safeSetTo(
         field: ObservableNumber,
         crossinline transformer: (T) -> Number?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -306,7 +306,7 @@ inline fun <T : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any, R : Any> Flowable<T>.safeSetTo(
         field: ObservableField<in R>,
         crossinline transformer: (T) -> R?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
 
 /**
  * Safe variant of @see [setTo] method that accepts and
@@ -315,4 +315,4 @@ inline fun <T : Any, R : Any> Flowable<T>.safeSetTo(
 inline fun <T : Any, R : Parcelable> Flowable<T>.safeSetTo(
         field: ObservableParcelable<in R>,
         crossinline transformer: (T) -> R?
-): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let { field.set(it) } }
+): Flowable<T> = doOnNext { tValue -> transformer(tValue)?.let(field::set) }
