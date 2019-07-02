@@ -32,52 +32,25 @@ import io.reactivex.Scheduler
 import android.databinding.Observable as DataBindingObservable
 
 
-internal inline fun <T : DataBindingObservable, R : Any?> T.observe(
-    scheduler: Scheduler?,
-    fireInitialValue: Boolean,
-    crossinline transformer: (T) -> R
-): Observable<R> = Observable.create<R> { source ->
-
-    if (fireInitialValue && !source.isDisposed) try {
-        source.onNext(transformer(this))
-    } catch (e: Exception) {
-        source.onError(e)
-        return@create
-    }
-
-    object : DataBindingObservable.OnPropertyChangedCallback() {
-        @Suppress("UNCHECKED_CAST")
-        override fun onPropertyChanged(observable: DataBindingObservable, id: Int) = if (!source.isDisposed) try {
-            source.onNext(transformer(observable as T))
-        } catch (e: Exception) {
-            source.onError(e)
-        } else Unit
-    }.let {
-        source.setCancellable { removeOnPropertyChangedCallback(it) }
-        addOnPropertyChangedCallback(it)
-    }
-
-}.let { if (scheduler != null) it.subscribeOn(scheduler) else it }
-
-internal inline fun <T : DataBindingObservable, R : Any> T.safeObserve(
+internal inline fun <T : DataBindingObservable, R : Any> T.observe(
     scheduler: Scheduler?,
     fireInitialValue: Boolean,
     crossinline transformer: (T) -> R?
 ): Observable<R> = Observable.create<R> { source ->
 
     if (fireInitialValue && !source.isDisposed) try {
-        transformer(this)?.let { source.onNext(it) }
-    } catch (e: Exception) {
-        source.onError(e)
+        transformer(this)?.let(source::onNext)
+    } catch (throwable: Throwable) {
+        source.onError(throwable)
         return@create
     }
 
     object : DataBindingObservable.OnPropertyChangedCallback() {
         @Suppress("UNCHECKED_CAST")
         override fun onPropertyChanged(observable: DataBindingObservable, id: Int) = if (!source.isDisposed) try {
-            transformer(observable as T)?.let { source.onNext(it) } ?: Unit
-        } catch (e: Exception) {
-            source.onError(e)
+            transformer(observable as T)?.let(source::onNext) ?: Unit
+        } catch (throwable: Throwable) {
+            source.onError(throwable)
         } else Unit
     }.let {
         source.setCancellable { removeOnPropertyChangedCallback(it) }
@@ -155,19 +128,9 @@ fun ObservableSpanned.observe(
 fun <T : Any> ObservableField<T>.observe(
     scheduler: Scheduler? = rxDataBindingsScheduler,
     fireInitialValue: Boolean = true
-): Observable<T?> = observe(scheduler, fireInitialValue) { it.get() }
+): Observable<T> = observe(scheduler, fireInitialValue) { it.get() }
 
 fun <T : Parcelable> ObservableParcelable<T>.observe(
     scheduler: Scheduler? = rxDataBindingsScheduler,
     fireInitialValue: Boolean = true
-): Observable<T?> = observe(scheduler, fireInitialValue) { it.get() }
-
-fun <T : Any> ObservableField<T>.safeObserve(
-    scheduler: Scheduler? = rxDataBindingsScheduler,
-    fireInitialValue: Boolean = true
-): Observable<T> = safeObserve(scheduler, fireInitialValue) { it.get() }
-
-fun <T : Parcelable> ObservableParcelable<T>.safeObserve(
-    scheduler: Scheduler? = rxDataBindingsScheduler,
-    fireInitialValue: Boolean = true
-): Observable<T> = safeObserve(scheduler, fireInitialValue) { it.get() }
+): Observable<T> = observe(scheduler, fireInitialValue) { it.get() }
