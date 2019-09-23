@@ -1,13 +1,13 @@
 package com.stepango.example
 
 import android.app.Activity
-import android.databinding.DataBindingUtil
-import android.databinding.ObservableInt
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
 import android.util.Log
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableInt
 import com.stepango.example.databinding.ActivityMainBinding
 import com.stepango.rxdatabindings.ObservableSpanned
 import com.stepango.rxdatabindings.ObservableString
