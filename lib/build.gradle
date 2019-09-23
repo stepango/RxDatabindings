@@ -3,18 +3,12 @@ plugins {
     id 'kotlin-android'
 }
 
-ext {
-    PUBLISH_GROUP_ID = 'com.stepango.rxdatabindings'
-    PUBLISH_ARTIFACT_ID = 'rxdatabindings'
-    PUBLISH_VERSION = "$release_version"
-}
-
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode release_code
         versionName "$release_version"
     }
@@ -40,9 +34,59 @@ dependencies {
             "io.reactivex.rxjava2:rxjava:$rxJava_version",
             "androidx.databinding:databinding-common:$android_plugin_version",
             "androidx.databinding:databinding-runtime:$android_plugin_version",
-
             "junit:junit:4.12",
     )
 }
 
-apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+version "$release_version"
+group 'com.stepango.rxdatabindings'
+
+publishing {
+    publications {
+        Production(MavenPublication) {
+            artifact("$buildDir/outputs/aar/lib-release.aar")
+            groupId this.group
+            artifactId 'rxdatabindings'
+            version this.version
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+
+                // Iterate over the implementation dependencies (we don't want the test ones),
+                // adding a <dependency> node for each
+                configurations.implementation.allDependencies.each {
+                    // Ensure dependencies such as fileTree are not included in the pom.
+                    if (it.name != 'unspecified') {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = project.getProperties()['user'] ?: System.getenv('BINTRAY_USER')
+    key = project.getProperties()['apiKey'] ?: System.getenv('BINTRAY_API_KEY')
+    publications = ['Production']
+    configurations = ['archives']
+    // Default: false. Whether to override version artifacts already published
+    override = false
+    // Default: false. Whether version should be auto published after an upload
+    publish = true
+    pkg {
+        repo = 'stepango' // the name of the repository you created on Bintray
+        name = 'rxDataBindings' // the name of the package you created inside it
+        version {
+            name = this.version
+            released = new Date()
+            vcsTag = this.version
+        }
+    }
+}

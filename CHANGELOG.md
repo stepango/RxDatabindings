@@ -1,6 +1,36 @@
 Change Log
 ==========
 
+Version 2.0.0 *(2019-09-23)*
+
+* AndroidX Migration
+* Default scheduler is now IO
+* Bintray publishing setup
+
+Version 1.9.0 *()*
+
+* Explicit return types
+
+Version 1.8.0 *(2019-06-19)*
+
+* Default scheduler in now Computation
+* safeObserve extension added
+
+Version 1.7.0 *(2019-06-14)*
+
+* Specialised extensions for ObservableString, ObservableSpanned, ObservableNumber
+* ObservableSpannableString removed
+* Dependencies updated
+
+Version 1.6.0 *(2018-12-06)*
+
+* Added ObservableSpanned
+* ObservableSpannableString - deprecated
+
+Version 1.5.0 *(2018-10-26)*
+
+* Added ObservableSpannableString
+
 Version 1.4.0 *(2018-07-18)*
 ----------------------------
 
