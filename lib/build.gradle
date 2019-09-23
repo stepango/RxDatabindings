@@ -25,19 +25,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
     }
-
-    dataBinding.enabled = true
 }
 
 dependencies {
     compileOnly(
             "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
             "io.reactivex.rxjava2:rxjava:$rxJava_version",
+            "androidx.databinding:databinding-common:$android_plugin_version",
+            "androidx.databinding:databinding-runtime:$android_plugin_version",
     )
 
     testImplementation(
             "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
             "io.reactivex.rxjava2:rxjava:$rxJava_version",
+            "androidx.databinding:databinding-common:$android_plugin_version",
+            "androidx.databinding:databinding-runtime:$android_plugin_version",
 
             "junit:junit:4.12",
     )
