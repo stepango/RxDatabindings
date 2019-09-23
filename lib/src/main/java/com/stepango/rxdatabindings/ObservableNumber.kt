@@ -15,7 +15,7 @@
  */
 package com.stepango.rxdatabindings
 
-import android.databinding.ObservableField
+import androidx.databinding.ObservableField
 
 
 /**

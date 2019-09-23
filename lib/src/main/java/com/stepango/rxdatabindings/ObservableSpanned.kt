@@ -1,11 +1,11 @@
 package com.stepango.rxdatabindings
 
-import android.databinding.ObservableField
 import android.os.Parcel
 import android.os.Parcelable
 import android.text.Spanned
 import android.text.SpannedString
 import android.text.TextUtils
+import androidx.databinding.ObservableField
 
 
 /**
