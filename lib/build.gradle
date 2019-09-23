@@ -43,7 +43,7 @@ dependencies {
             "com.android.databinding:baseLibrary:$android_plugin_version",
             "com.android.databinding:adapters:$android_plugin_version",
 
-            'junit:junit:4.12',
+            "junit:junit:4.12",
     )
 }
 
