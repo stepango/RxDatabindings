@@ -1,0 +1,34 @@
+load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library", "kt_jvm_test")
+
+kt_android_library(
+    name = "rxdatabindings",
+    srcs = glob(["src/main/java/com/stepango/rxdatabindings/*.kt"]),
+    deps = [
+        "@maven//:junit_junit",
+        "@maven//:io_reactivex_rxjava2_rxjava",
+        "@maven//:androidx_databinding_databinding_common",
+        "@maven//:androidx_databinding_databinding_runtime",
+    ]
+)
+
+java_import(
+    name = "android_sdk",
+    jars = ["@bazel_tools//tools/android:android_jar"],
+    neverlink = 1,
+    visibility = ["//visibility:private"],
+)
+
+kt_jvm_test(
+    name = "rxdatabindings_test",
+    srcs = glob([
+        "src/test/java/com/stepango/test/*.kt",
+        "src/test/java/com/stepango/test/*.java"
+    ]),
+    deps = [
+        "@maven//:junit_junit",
+        "@maven//:io_reactivex_rxjava2_rxjava",
+        "@maven//:androidx_databinding_databinding_common",
+        "@maven//:androidx_databinding_databinding_runtime",
+        ":rxdatabindings",
+    ]
+)
