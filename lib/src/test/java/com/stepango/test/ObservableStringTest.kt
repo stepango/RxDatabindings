@@ -8,11 +8,11 @@ import org.junit.Test
 
 class ObservableStringTest {
 
-//    @Test(expected = IllegalStateException::class)
-//    fun testNullValueInObservableString() {
-//        val testString = ObservableString()
-//        testString.set(NullStringGetter.getNull())
-//    }
+    @Test(expected = IllegalStateException::class)
+    fun testNullValueInObservableString() {
+        val testString = ObservableString()
+        testString.set(NullStringGetter.getNull())
+    }
 
     @Test
     fun observeObservableString() {
