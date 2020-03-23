@@ -41,7 +41,7 @@ dependencies {
             //"com.stepango.rxdatabindings:rxdatabindings:$release_version",
 
             "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            "io.reactivex.rxjava2:rxjava:$rxJava_version",
+            "io.reactivex.rxjava3:rxjava:$rxJava_version",
     )
 
 }

@@ -28,7 +28,7 @@ import androidx.databinding.ObservableInt
 import androidx.databinding.ObservableLong
 import androidx.databinding.ObservableParcelable
 import androidx.databinding.ObservableShort
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 
 
 /**

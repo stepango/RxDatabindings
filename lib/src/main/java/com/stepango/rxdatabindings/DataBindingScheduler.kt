@@ -16,8 +16,8 @@
 
 package com.stepango.rxdatabindings
 
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 
 var rxDataBindingsScheduler: Scheduler = Schedulers.io()

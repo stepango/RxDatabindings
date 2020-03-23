@@ -2,7 +2,7 @@ package com.stepango.test
 
 import com.stepango.rxdatabindings.ObservableString
 import com.stepango.rxdatabindings.observe
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import org.junit.Test
 
 
