@@ -9,7 +9,7 @@ implementation "com.stepango.rxdatabindings:rxdatabindings:2.0.0"
 ```
 
 Basic example of usage:
-```
+```kotlin
 interface ViewModelState : Parcelable {
     val text: ObservableString
     val counter: ObservableInt
