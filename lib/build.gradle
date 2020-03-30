@@ -13,29 +13,25 @@ android {
         versionName "$release_version"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt')
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    compileOnly(
-            "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-            "io.reactivex.rxjava3:rxjava:$rxJava_version",
-            "androidx.databinding:databinding-common:$android_plugin_version",
-            "androidx.databinding:databinding-runtime:$android_plugin_version",
-    )
 
-    testImplementation(
-            "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-            "io.reactivex.rxjava3:rxjava:$rxJava_version",
-            "androidx.databinding:databinding-common:$android_plugin_version",
-            "androidx.databinding:databinding-runtime:$android_plugin_version",
-            "junit:junit:4.12",
-    )
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly "io.reactivex.rxjava3:rxjava:$rxJava_version"
+    compileOnly "androidx.databinding:databinding-common:$android_plugin_version"
+    compileOnly "androidx.databinding:databinding-runtime:$android_plugin_version"
+
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "io.reactivex.rxjava3:rxjava:$rxJava_version"
+    testImplementation "androidx.databinding:databinding-common:$android_plugin_version"
+    testImplementation "androidx.databinding:databinding-runtime:$android_plugin_version"
+    testImplementation "junit:junit:4.12"
+
 }
 
 apply plugin: 'maven-publish'

@@ -1,7 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-RULES_JVM_EXTERNAL_TAG = "2.7"
-RULES_JVM_EXTERNAL_SHA = "f04b1466a00a2845106801e0c5cec96841f49ea4e7d1df88dc8e4bf31523df74"
+RULES_JVM_EXTERNAL_TAG = "3.0"
+RULES_JVM_EXTERNAL_SHA = "62133c125bf4109dfd9d2af64830208356ce4ef8b165a6ef15bbff7460b35c3a"
 
 http_archive(
     name = "rules_jvm_external",
@@ -12,13 +12,13 @@ http_archive(
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
-android_plugin_version = "3.5.1"
-rx_java_version = "2.2.12"
+android_plugin_version = "3.6.1"
+rx_java_version = "3.0.0"
 junit_version = "4.12"
 
 maven_install(
     artifacts = [
-        "io.reactivex.rxjava2:rxjava:" + rx_java_version,
+        "io.reactivex.rxjava3:rxjava:" + rx_java_version,
         "androidx.databinding:databinding-common:" + android_plugin_version,
         "androidx.databinding:databinding-runtime:" + android_plugin_version ,
         "junit:junit:" + junit_version,
@@ -29,8 +29,6 @@ maven_install(
         "https://repo1.maven.org/maven2",
     ],
 )
-
-
 
 # Configure Android SDK Path
 
@@ -49,8 +47,8 @@ android_sdk_repository(
 
 # Kotlin rules
 
-rules_kotlin_version = "legacy-modded-1_0_0-01"
-rules_kotlin_sha = "b7984b28e0a1e010e225a3ecdf0f49588b7b9365640af783bd01256585cbb3ae"
+rules_kotlin_version = "legacy-1.3.0"
+rules_kotlin_sha = "4fd769fb0db5d3c6240df8a9500515775101964eebdf85a3f9f0511130885fde"
 http_archive(
     name = "io_bazel_rules_kotlin",
     urls = ["https://github.com/cgruber/rules_kotlin/archive/%s.zip" % rules_kotlin_version],

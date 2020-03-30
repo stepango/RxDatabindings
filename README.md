@@ -1,11 +1,11 @@
 # RxDatabindings
 [![Download](https://api.bintray.com/packages/step-89-g/stepango/rxDataBindings/images/download.svg) ](https://bintray.com/step-89-g/stepango/rxDataBindings/_latestVersion)
 
-RxJava2 extensions for Android Databindings library
+RxJava 2 & 3 extensions for Android Databindings library
 
 Add RxDataBindings to your build.gradle
-```
-implementation "com.stepango.rxdatabindings:rxdatabindings:2.0.0"
+```groovy
+implementation "com.stepango.rxdatabindings:rxdatabindings:3.0.0"
 ```
 
 Basic example of usage:
