@@ -5,7 +5,7 @@ kt_android_library(
     srcs = glob(["src/main/java/com/stepango/rxdatabindings/*.kt"]),
     deps = [
         "@maven//:junit_junit",
-        "@maven//:io_reactivex_rxjava2_rxjava",
+        "@maven//:io_reactivex_rxjava3_rxjava",
         "@maven//:androidx_databinding_databinding_common",
         "@maven//:androidx_databinding_databinding_runtime",
     ]
@@ -26,7 +26,7 @@ kt_jvm_test(
     ]),
     deps = [
         "@maven//:junit_junit",
-        "@maven//:io_reactivex_rxjava2_rxjava",
+        "@maven//:io_reactivex_rxjava3_rxjava",
         "@maven//:androidx_databinding_databinding_common",
         "@maven//:androidx_databinding_databinding_runtime",
         ":rxdatabindings",
